@@ -1,0 +1,34 @@
+<h2>Edit User</h2>
+<form [formGroup]="examassign" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="assignTo">Exam Assign to </label>
+        <select formControlName="assignTo" class="selectpicker dropdown mt-4 ml-3" id="type" data-live-search="true"
+            (change)="selectOption($event.target.value)" [(ngModel)]="selected">
+            <option *ngFor="let user of users$ | async" [value]="user.id">{{user.userName}}</option>
+        </select>
+        <div *ngIf="submitted && f.assignTo.errors" class="invalid-feedback">
+            <div *ngIf="f.assignTo.errors.required">Exam assign to is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required">description is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exam">Select Exam</label>
+        <select formControlName="exam" class="selectpicker dropdown mt-4 ml-3" id="type" data-live-search="true">
+            <option *ngFor="let exam of exams$ | async" [value]="exam.id">{{exam.name}}</option>
+        </select>
+        <div *ngIf="submitted && f.exam.errors" class="invalid-feedback">
+            <div *ngIf="f.exam.errors.required">exam is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary pull-right">Next</button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+</form>

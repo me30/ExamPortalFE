@@ -1,0 +1,7 @@
+.sidebar{
+    overflow-y : unset !important;
+}
+.pnx-msg-icon{
+    width: 238px !important;
+    height: 50px !important;
+}
