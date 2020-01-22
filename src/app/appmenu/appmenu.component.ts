@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
@@ -11,21 +11,20 @@ import { RoleName } from '../_models/role';
 export class AppmenuComponent implements OnInit {
   user : User;
   token: String;
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService) {
+    this.ngOnInit();
+   }
 
   ngOnInit() {
-    if(this.userService.user != null){
-      this.user = this.userService.user;
-      this.token = this.userService.token;
-    }
+   this.token = this.userService.token;
+   this.user = this.userService.user;
   }
 
   get isAdmin() {
-    return this.userService.user && this.userService.user.role === RoleName.Admin;
+    return this.user && this.user.role === RoleName.Admin;
   }
 
   get isUser() {
-    return this.userService.user && this.userService.user.role === RoleName.User;
+    return this.user && this.user.role === RoleName.User;
   }
-
 }

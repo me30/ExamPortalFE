@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { routing } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,6 +30,8 @@ import { QuestionComponent } from './question/question.component';
 import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
 import { QuestionService } from './_services/question.service';
 import { UsereditprofileComponent } from './usereditprofile/usereditprofile.component';
+import { DataTablesModule } from 'angular-datatables';
+import { AddQuestionsComponent } from './question/add-questions/add-questions.component';  
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { UsereditprofileComponent } from './usereditprofile/usereditprofile.comp
     ExamassignComponent,
     QuestionComponent,
     ChangeUserPasswordComponent,
-    UsereditprofileComponent
+    UsereditprofileComponent,
+    AddQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,9 @@ import { UsereditprofileComponent } from './usereditprofile/usereditprofile.comp
     HttpModule,
     HttpClientModule,
     routing,
-    MatRadioModule
+    MatRadioModule,
+    DataTablesModule,
+    FormsModule
   ],
   providers: [
     AuthService,

@@ -54,6 +54,16 @@ export class UserService {
       .then(response => response.json() as User[]);
   }
 
+  getOnlyUsers(): Promise<User[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token
+    });
+    return this.http.get(this.baseUrl + '/user/getOnlyUsres',{ headers: headers })
+      .toPromise()
+      .then(response => response.json() as User[]);
+  }
+
   updateUser(userData: User) {
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -70,7 +80,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  updateProfile(userData: User) {
+  updateProfile(userData: User): Promise<User> {
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
@@ -80,9 +90,9 @@ export class UserService {
     } else {
       userData.role = RoleName.User;
     }
-    return this.http.put(this.baseUrl + '/user',userData,{ headers: headers })
+    return this.http.put(this.baseUrl + '/user/editProfile',userData,{ headers: headers })
       .toPromise()
-      .then(response => response)
+      .then(response => this.user = response.json() as User)
       .catch(this.handleError);
   }
 

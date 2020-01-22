@@ -45,7 +45,8 @@ export class ForgotpasswordComponent implements OnInit {
     this.authService.forgotpassword(this.resetForm.value)
         .then(
             data => {
-              window.confirm('Please check your email!');       
+              window.confirm('Please check your email!'); 
+              this.router.navigate(['/login']);        
             },
             error => {
                 this.loading = false;

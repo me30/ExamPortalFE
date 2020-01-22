@@ -32,7 +32,6 @@
           </a> -->
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <!-- <a [routerLink]="['/cngpass']" [queryParams]="{token: token}"   class="nav-link active">  -->
                <a [routerLink]="['/cngpass']" class="nav-link active">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Change Password</p>
@@ -44,6 +43,14 @@
               <a [routerLink]="['/exam']" class="nav-link active">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Exam</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview"  *ngIf="isAdmin">
+            <li class="nav-item">
+              <a [routerLink]="['/question']" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Quetions</p>
               </a>
             </li>
           </ul>

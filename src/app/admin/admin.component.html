@@ -1,37 +1,42 @@
-<!-- <h1>Admin</h1>
-<p>This page can only be accessed by administrators.</p>
-<div>
-    All users from secure (admin only) api end point:
-    <ul>
-        <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
-    </ul>
-</div>
-<div>
-<a [routerLink]="['/user/register']" class="btn btn-link">Add User</a>
-</div> -->
-
-<div class="col-md-12">
-    <h2> User Details</h2>
-    <a [routerLink]="['/user/register']" class="btn btn-primary pull-right">Add User</a>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="hidden">Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Email</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td class="hidden">{{user.id}}</td>
-                <td>{{user.firstName}}</td>
-                <td>{{user.lastName}}</td>
-                <td>{{user.email}}</td>
-                <td><button class="btn btn-success" (click)="edit(user)">Edit User</button>
-                    <button class="btn btn-danger" (click)="deleteUser(user)">Delete User</button></td>
-              </tr>
-        </tbody>
-    </table>
-</div>
+<div class="panel panel-default">  
+    <div class="panel-heading">  
+        <h4 style="text-align: center">User List</h4><br>  
+        <div class="row" [hidden]="!deleteMessage">  
+               
+                  <div class="col-sm-4"></div>  
+                  <div class="col-sm-4">  
+                          <div class="alert alert-info alert-dismissible">  
+                                  <button type="button" class="close" data-dismiss="alert">×</button>  
+                                  <strong>User Data Deleted</strong>  
+                          </div>  
+                  </div>  
+                  <div class="col-sm-4"></div>  
+          </div>             
+      </div>  
+    
+      
+    <div class="panel-body">  
+        <table  class="table table-hover table-sm" datatable [dtOptions]="dtOptions"  
+        [dtTrigger]="dtTrigger"  >  
+            <thead class="thead-light">  
+                <tr>  
+                    <th>Name</th>  
+                    <th>Email</th>  
+                    <th>Gender</th>  
+                    <th>Action</th>  
+                      
+                </tr>  
+            </thead>  
+            <tbody>  
+                 <tr *ngFor="let user of users">  
+                    <td>{{user.firstName}} {{user.lastName}}</td>  
+                    <td>{{user.email}}</td>  
+                    <td>{{user.gender}}</td>  
+                    <td><button (click)="deleteUser(user)" class='btn btn-primary'><i class="fa fa-futboll-0">Delete</i></button>   
+                      <button (click)="edit(user)" class='btn btn-info'>Update</button>  
+                    </td>  
+                  </tr>   
+            </tbody><br>  
+        </table>  
+    </div>  
+  </div> 

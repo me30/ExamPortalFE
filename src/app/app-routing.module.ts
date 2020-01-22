@@ -16,6 +16,8 @@ import { ChangeUserPasswordComponent } from './change-user-password/change-user-
 import { QuestionComponent } from './question/question.component';
 import { RoleName } from './_models/role';
 import { UsereditprofileComponent } from './usereditprofile/usereditprofile.component';
+import { AppmenuComponent } from './appmenu/appmenu.component';
+import { AddQuestionsComponent } from './question/add-questions/add-questions.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -25,15 +27,17 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] ,
     children: [
         { path: 'userPage', component: UserpageComponent,canActivate: [AuthGuard] },
-        { path: 'admin', component: AdminComponent,canActivate: [AuthGuard] , data: { roles: [RoleName.Admin]}},
+        { path: 'admin', component: AdminComponent,canActivate: [AuthGuard] },
         { path: 'profile', component: UserprofileComponent, canActivate: [AuthGuard] },
         { path: 'editprofile', component: UsereditprofileComponent,canActivate: [AuthGuard] },
         { path: 'user/register', component: RegisterComponent,canActivate: [AuthGuard]},
         { path: 'cngpass', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
         { path: 'exam', component: ExamComponent, canActivate:[AuthGuard] },
         { path: 'examassign', component: ExamassignComponent, canActivate:[AuthGuard] },
-        { path: 'que', component: QuestionComponent, canActivate:[AuthGuard] },
+        { path: 'question', component: QuestionComponent, canActivate:[AuthGuard] },
+        { path: 'question/add', component: AddQuestionsComponent, canActivate:[AuthGuard] },
         { path: 'user/edit/:id', component: EdituserComponent, canActivate:[AuthGuard]},
+        { path: 'menu', component: AppmenuComponent, canActivate:[AuthGuard]},
         // otherwise redirect to home
         { path: '**', redirectTo: '' }
       ]

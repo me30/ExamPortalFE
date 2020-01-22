@@ -1,4 +1,11 @@
-  .example-radio-button {
-    margin: 5px !important;
-  }
-  
+.example-radio-button {
+  margin: 5px !important;
+}
+
+:host ::ng-deep .mat-radio-outer-circle{
+  border-style: none;
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid red
+}

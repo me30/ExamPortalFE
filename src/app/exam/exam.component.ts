@@ -39,7 +39,7 @@ export class ExamComponent implements OnInit {
     this.examService.createExam(this.createExamForm.value)
     .then(
         data => {
-            this.router.navigate(['/que']);
+            this.router.navigate(['/admin']);  
         },
         error => {
             this.loading = false;

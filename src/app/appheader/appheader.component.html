@@ -8,6 +8,9 @@
     <li class="nav-item d-none d-sm-inline-block" *ngIf="isAdmin">
       <a class="nav-item nav-link" routerLink="/admin">Home</a>
     </li>
+    <li class="nav-item d-none d-sm-inline-block" *ngIf="isAdmin">
+      <a [routerLink]="['/user/register']" class="nav-item nav-link">Add User</a>
+    </li>
     <li class="nav-item d-none d-sm-inline-block" *ngIf="isUser">
       <a class="nav-item nav-link" routerLink="/userPage">Home</a>
     </li>

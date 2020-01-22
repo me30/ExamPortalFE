@@ -10,6 +10,7 @@ export class ExamService {
   private baseUrl = 'http://localhost:8080';
   user: User;
   exam: Exam;
+  selectedExam: Exam;
 
   headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
   options = new RequestOptions({ headers: this.headers });
@@ -30,14 +31,22 @@ export class ExamService {
   }
 
   getExams(): Promise<Exam[]> {
-    return this.http.get(this.baseUrl + '/exam/findAll')
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/exam/findAll',{ headers: headers })
       .toPromise()
       .then(response => response.json() as Exam[])
       .catch(this.handleError);
   }
 
   getExamById(id: number) {
-    return this.http.get(this.baseUrl + '/exam/' + id)
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/exam/' + id,{ headers: headers })
       .toPromise()
       .then(response =>  response.json() as Exam)
       .catch(this.handleError);
@@ -49,6 +58,11 @@ export class ExamService {
     return this.http.post(this.baseUrl + '/examAssign', examAssign)
       .toPromise().then(response => response.json() as User)
       .catch(this.handleError);
+  }
+
+  //Store Selected exam for questions
+  addExam(exam: Exam){
+    return this.selectedExam = exam;
   }
 
   private handleError(error: any): Promise<any> {
