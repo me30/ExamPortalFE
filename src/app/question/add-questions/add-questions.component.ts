@@ -14,8 +14,11 @@ export class AddQuestionsComponent implements OnInit {
   createQuetionForm: FormGroup;
   loading = false;
   submitted = false;
-  booleanValue: string[] = ['true', 'false'];
+  booleanValue: string[] = ['True', 'False'];
   exams$;
+  selectedAnsType: string;
+  ansTypes: string[] = ['Text ans', 'Single select', 'Multi select'];
+  selectedExam;
 
   constructor(private formBuilder: FormBuilder,
       private router: Router,
@@ -28,21 +31,21 @@ export class AddQuestionsComponent implements OnInit {
       return this.examService.getExams();
   }
   ngOnInit() {
+      this.selectedExam = this.examService.selectedExam.name
+      this.selectedAnsType = this.ansTypes[0];
       this.exams$ = this.getExams();
       this.createQuetionForm = this.formBuilder.group({
           question: ['', Validators.required],
-          ansInText: ['', Validators.required],
-          correct_ans: ['', Validators.required],
-          option1: ['', Validators.required],
-          option2: ['', Validators.required],
-          option3: ['', Validators.required],
-          option4: ['', Validators.required],
-          option1IsAns: ['', Validators.required],
-          option2IsAns: ['', Validators.required],
-          option3IsAns: ['', Validators.required],
-          option4IsAns: ['', Validators.required],
-          isMultiSelect: ['', Validators.required],
-          isText: ['', Validators.required],
+          ansCategory: [''],
+          correct_ans: [''],
+          option1: [''],
+          option2: [''],
+          option3: [''],
+          option4: [''],
+          option1IsAns: [''],
+          option2IsAns: [''],
+          option3IsAns: [''],
+          option4IsAns: [''],
       });
   }
 

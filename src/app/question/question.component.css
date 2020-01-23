@@ -6,6 +6,14 @@
   border-style: none;
 }
 
-select.ng-invalid.ng-touched {
+.select2.ng-invalid.ng-touched {
   border: 1px solid red
+}
+
+.pull-right{
+  float: right !important;
+}
+
+.pull-left{
+  float: left !important;
 }

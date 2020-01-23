@@ -64,7 +64,7 @@ import { AddQuestionsComponent } from './question/add-questions/add-questions.co
     routing,
     MatRadioModule,
     DataTablesModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     AuthService,

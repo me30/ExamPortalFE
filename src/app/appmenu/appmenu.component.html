@@ -1,8 +1,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="#" class="brand-link">
-    <img src="assets/dist/img/logo.jpg" alt="AdminLTE Logo" class="pnx-msg-icon elevation-3">
+  <a href="http://www.nxsol.com/" class="brand-link">
+    <img src="assets/dist/img/NX.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">N-Xperts Solutions</span>
   </a>
 
   <!-- Sidebar -->
@@ -21,39 +22,31 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview menu-open">
-          <!-- <a href="#" class="nav-link active">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+               with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a [routerLink]="['/cngpass']" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
             <p>
-              Dashboard
-              <i class="right fas fa-angle-left"></i>
+              Change Password
             </p>
-          </a> -->
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-               <a [routerLink]="['/cngpass']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Change Password</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview"  *ngIf="isAdmin">
-            <li class="nav-item">
-              <a [routerLink]="['/exam']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Add Exam</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview"  *ngIf="isAdmin">
-            <li class="nav-item">
-              <a [routerLink]="['/question']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Add Quetions</p>
-              </a>
-            </li>
-          </ul>
+          </a>
+        </li>
+        <li class="nav-header">Exam Portal</li>
+        <li class="nav-item">
+          <a [routerLink]="['/exam']" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Exam
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/question']" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Quetions
+            </p>
+          </a>
         </li>
       </ul>
     </nav>

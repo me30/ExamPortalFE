@@ -5,3 +5,11 @@
   :host ::ng-deep .mat-radio-outer-circle{
     border-style: none;
   }
+
+  .pull-right{
+    float: right !important;
+  }
+
+.pull-left{
+    float: left !important;
+  }

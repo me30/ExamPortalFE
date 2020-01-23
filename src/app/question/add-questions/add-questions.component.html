@@ -1,170 +1,275 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="createQuetionForm">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="question">Add Que</label>
-            <input type="text" formControlName="question" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.question.errors }" />
-            <div *ngIf="submitted && f.question.errors" class="invalid-feedback">
-              <div *ngIf="f.question.errors.required">question is required</div>
-            </div>
-          </div>
+<!-- <form (ngSubmit)="onSubmit()" #selectExamForm="ngForm">
+  <div class="form-group">
+    <label for="examid">Select Exam</label>
+    <select class="form-control" id="examid" name="examid" ngModel #examid="ngModel">
+      <option *ngFor="let exam of exams$ | async" [value]="exam.id" 
+      ng-selected="exam.id == examid">{{exam.name}}</option>
+    </select>
+    <span class="help-block" *ngIf="!examid.valid && examid.touched">Plase Select a Exam!</span>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary pull-right">Next</button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+</form> -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">Selected Exam is : {{selectedExam}}</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="form-group">
-            <label for="ansInText">Text ans</label>
-            <input type="ansInText" formControlName="ansInText" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ansInText.errors }" />
-            <div *ngIf="submitted && f.ansInText.errors" class="invalid-feedback">
-              <div *ngIf="f.ansInText.errors.required">Text ans is required</div>
+      <!-- /.card-header -->
+      <div class="card-body">
+
+        <form [formGroup]="createQuetionForm">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="question">Add Que</label>
+                <input type="text" formControlName="question" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.question.errors }" />
+                <div *ngIf="submitted && f.question.errors" class="invalid-feedback">
+                  <div *ngIf="f.question.errors.required">question is required</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-xs-6">
           <div class="form-group">
-            <label for="correct_ans">Correct ans</label>
-            <input type="correct_ans" formControlName="correct_ans" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.correct_ans.errors }" />
-            <div *ngIf="submitted && f.correct_ans.errors" class="invalid-feedback">
-              <div *ngIf="f.correct_ans.errors.required">Correct ans is required</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="form-group">
-            <label for="option1">Option1</label>
-            <input type="option1" formControlName="option1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option1.errors }" />
-            <div *ngIf="submitted && f.option1.errors" class="invalid-feedback">
-              <div *ngIf="f.option1.errors.required">option1 ans is required</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-6">
-          <div class="form-group">
-            <label for="option2">Option2</label>
-            <input type="option2" formControlName="option2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option2.errors }" />
-            <div *ngIf="submitted && f.option2.errors" class="invalid-feedback">
-              <div *ngIf="f.option2.errors.required">option2 ans is required</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="form-group">
-            <label for="option3">Option3</label>
-            <input type="option3" formControlName="option3" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option3.errors }" />
-            <div *ngIf="submitted && f.option3.errors" class="invalid-feedback">
-              <div *ngIf="f.option3.errors.required">option3 ans is required</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-6">
-          <div class="form-group">
-            <label for="option4">Option4</label>
-            <input type="option4" formControlName="option4" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option4.errors }" />
-            <div *ngIf="submitted && f.option4.errors" class="invalid-feedback">
-              <div *ngIf="f.option4.errors.required">option4 ans is required</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="option1IsAns">Option1 Is Ans</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="option1IsAns">
-              <mat-radio-button class="example-radio-button" *ngFor="let op1 of booleanValue" [value]="op1">
-                {{op1}}
+            <mat-radio-group class="example-radio-group" formControlName="ansCategory" [(ngModel)]="selectedAnsType">
+              <mat-radio-button class="example-radio-button" *ngFor="let ansType of ansTypes" [value]="ansType">
+                {{ansType}}
               </mat-radio-button>
             </mat-radio-group>
-            <div *ngIf="submitted && f.option1IsAns.errors" class="invalid-feedback">
-              <div *ngIf="f.option1IsAns.errors.required">option1IsAns is required</div>
-            </div>
           </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="option2IsAns">Option2 Is Ans</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="option2IsAns">
-              <mat-radio-button class="example-radio-button" *ngFor="let op2 of booleanValue" [value]="op2">
-                {{op2}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="submitted && f.option2IsAns.errors" class="invalid-feedback">
-              <div *ngIf="f.option2IsAns.errors.required">option2IsAns is required</div>
+
+          <div class="input-container">
+
+            <div *ngIf="selectedAnsType=='Text ans'">
+              <div class="form-group">
+                <label for="correct_ans">Correct ans</label>
+                <input type="correct_ans" formControlName="correct_ans" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.correct_ans.errors }" />
+                <div *ngIf="submitted && f.correct_ans.errors" class="invalid-feedback">
+                  <div *ngIf="f.correct_ans.errors.required">Correct ans is required</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="option3IsAns">Option3 Is Ans</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="option3IsAns">
-              <mat-radio-button class="example-radio-button" *ngFor="let op3 of booleanValue" [value]="op3">
-                {{op3}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="submitted && f.option3IsAns.errors" class="invalid-feedback">
-              <div *ngIf="f.option3IsAns.errors.required">option3IsAns is required</div>
+
+            <div *ngIf="selectedAnsType=='Single select'">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="option1">Option1</label>
+                    <input type="option1" formControlName="option1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option1.errors }" />
+                    <div *ngIf="submitted && f.option1.errors" class="invalid-feedback">
+                      <div *ngIf="f.option1.errors.required">option1 ans is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option2">Option2</label>
+                    <input type="option2" formControlName="option2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option2.errors }" />
+                    <div *ngIf="submitted && f.option2.errors" class="invalid-feedback">
+                      <div *ngIf="f.option2.errors.required">option2 ans is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option3">Option3</label>
+                    <input type="option3" formControlName="option3" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option3.errors }" />
+                    <div *ngIf="submitted && f.option3.errors" class="invalid-feedback">
+                      <div *ngIf="f.option3.errors.required">option3 ans is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option4">Option4</label>
+                    <input type="option4" formControlName="option4" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option4.errors }" />
+                    <div *ngIf="submitted && f.option4.errors" class="invalid-feedback">
+                      <div *ngIf="f.option4.errors.required">option4 ans is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="option1IsAns">Option1 Is Ans</label><br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                      formControlName="option1IsAns">
+                      <mat-radio-button class="example-radio-button" *ngFor="let op1 of booleanValue" [value]="op1">
+                        {{op1}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="submitted && f.option1IsAns.errors" class="invalid-feedback">
+                      <div *ngIf="f.option1IsAns.errors.required">option1IsAns is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option2IsAns">Option2 Is Ans</label><br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                      formControlName="option2IsAns">
+                      <mat-radio-button class="example-radio-button" *ngFor="let op2 of booleanValue" [value]="op2">
+                        {{op2}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="submitted && f.option2IsAns.errors" class="invalid-feedback">
+                      <div *ngIf="f.option2IsAns.errors.required">option2IsAns is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option3IsAns">Option3 Is Ans</label><br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                      formControlName="option3IsAns">
+                      <mat-radio-button class="example-radio-button" *ngFor="let op3 of booleanValue" [value]="op3">
+                        {{op3}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="submitted && f.option3IsAns.errors" class="invalid-feedback">
+                      <div *ngIf="f.option3IsAns.errors.required">option3IsAns is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                    <label for="option4IsAns">Option4 Is Ans</label><br>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                      formControlName="option4IsAns">
+                      <mat-radio-button class="example-radio-button" *ngFor="let op4 of booleanValue" [value]="op4">
+                        {{op4}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="submitted && f.option4IsAns.errors" class="invalid-feedback">
+                      <div *ngIf="f.option4IsAns.errors.required">option4IsAns is required</div>
+                    </div>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="option4IsAns">Option4 Is Ans</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="option4IsAns">
-              <mat-radio-button class="example-radio-button" *ngFor="let op4 of booleanValue" [value]="op4">
-                {{op4}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="submitted && f.option4IsAns.errors" class="invalid-feedback">
-              <div *ngIf="f.option4IsAns.errors.required">option4IsAns is required</div>
+
+            <div *ngIf="selectedAnsType=='Multi select'">
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="option1">Option1</label>
+                        <input type="option1" formControlName="option1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option1.errors }" />
+                        <div *ngIf="submitted && f.option1.errors" class="invalid-feedback">
+                          <div *ngIf="f.option1.errors.required">option1 ans is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option2">Option2</label>
+                        <input type="option2" formControlName="option2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option2.errors }" />
+                        <div *ngIf="submitted && f.option2.errors" class="invalid-feedback">
+                          <div *ngIf="f.option2.errors.required">option2 ans is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option3">Option3</label>
+                        <input type="option3" formControlName="option3" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option3.errors }" />
+                        <div *ngIf="submitted && f.option3.errors" class="invalid-feedback">
+                          <div *ngIf="f.option3.errors.required">option3 ans is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option4">Option4</label>
+                        <input type="option4" formControlName="option4" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.option4.errors }" />
+                        <div *ngIf="submitted && f.option4.errors" class="invalid-feedback">
+                          <div *ngIf="f.option4.errors.required">option4 ans is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="option1IsAns">Option1 Is Ans</label><br>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                          formControlName="option1IsAns">
+                          <mat-radio-button class="example-radio-button" *ngFor="let op1 of booleanValue" [value]="op1">
+                            {{op1}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && f.option1IsAns.errors" class="invalid-feedback">
+                          <div *ngIf="f.option1IsAns.errors.required">option1IsAns is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option2IsAns">Option2 Is Ans</label><br>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                          formControlName="option2IsAns">
+                          <mat-radio-button class="example-radio-button" *ngFor="let op2 of booleanValue" [value]="op2">
+                            {{op2}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && f.option2IsAns.errors" class="invalid-feedback">
+                          <div *ngIf="f.option2IsAns.errors.required">option2IsAns is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option3IsAns">Option3 Is Ans</label><br>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                          formControlName="option3IsAns">
+                          <mat-radio-button class="example-radio-button" *ngFor="let op3 of booleanValue" [value]="op3">
+                            {{op3}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && f.option3IsAns.errors" class="invalid-feedback">
+                          <div *ngIf="f.option3IsAns.errors.required">option3IsAns is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                      <div class="form-group">
+                        <label for="option4IsAns">Option4 Is Ans</label><br>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                          formControlName="option4IsAns">
+                          <mat-radio-button class="example-radio-button" *ngFor="let op4 of booleanValue" [value]="op4">
+                            {{op4}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                        <div *ngIf="submitted && f.option4IsAns.errors" class="invalid-feedback">
+                          <div *ngIf="f.option4IsAns.errors.required">option4IsAns is required</div>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+
             </div>
+
           </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="isMultiSelect">Is MultiSelect</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="isMultiSelect">
-              <mat-radio-button class="example-radio-button" *ngFor="let multi of booleanValue" [value]="multi">
-                {{multi}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="submitted && f.isMultiSelect.errors" class="invalid-feedback">
-              <div *ngIf="f.isMultiSelect.errors.required">isMultiSelect is required</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-4">
-          <div class="form-group">
-            <label for="isText">Is Text</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="isText">
-              <mat-radio-button class="example-radio-button" *ngFor="let text of booleanValue" [value]="text">
-                {{text}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div *ngIf="submitted && f.isText.errors" class="invalid-feedback">
-              <div *ngIf="f.isText.errors.required">isText is required</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
+
+
+
           <div class="form-group">
             <button [disabled]="loading" (click)="onFinalSubmit()" class="btn btn-primary pull-right">Finish</button>
             <button [disabled]="loading" (click)="onSubmit();" type="reset" create class="btn btn-primary pull-right">Next</button>
           </div>
-        </div>
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+        </form>
+
       </div>
-
-      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
-    </form>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
   </div>
-</div>
+
+</section>

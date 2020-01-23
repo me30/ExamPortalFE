@@ -33,21 +33,21 @@
         <label for="email">Email</label>
         <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Password is required</div>
+            <div *ngIf="f.email.errors.required">Email is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="dob">Date of Birth</label>
         <input type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
         <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-            <div *ngIf="f.dob.errors.required">Password is required</div>
+            <div *ngIf="f.dob.errors.required">Dob is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="gender">Gender</label>
         <input type="text" formControlName="gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" />
         <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-            <div *ngIf="f.gender.errors.required">Password is required</div>
+            <div *ngIf="f.gender.errors.required">Gender is required</div>
         </div>
     </div>
 
