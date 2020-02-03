@@ -14,7 +14,7 @@
         <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a [routerLink]="['/profile']" class="d-block">{{user.firstName}} {{user.lastName}}</a>
+        <a [routerLink]="['/profile']" class="d-block">{{firstName}} {{lastName}}</a>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
         </li>
         <li class="nav-header">Exam Portal</li>
         <li class="nav-item">
-          <a [routerLink]="['/exam']" class="nav-link">
+          <a [routerLink]="['/exam/list']" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>
               Exam

@@ -25,6 +25,7 @@
     "angular-admin-lte": "^2.0.1",
     "angular-datatable": "^2.2.1",
     "angular-datatables": "^6.0.0",
+    "angular7-data-table": "^1.0.13",
     "bootstrap": "^3.4.1",
     "core-js": "^2.5.4",
     "datatables.net": "^1.10.20",

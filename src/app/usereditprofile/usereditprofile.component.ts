@@ -1,9 +1,10 @@
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, RouterEvent } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
 import { Location } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-usereditprofile',
@@ -41,6 +42,11 @@ export class UsereditprofileComponent implements OnInit {
             dob: ['', Validators.required],
         });
         this.initForm();
+        this.router.events.pipe(
+            filter((event: RouterEvent) => event instanceof NavigationEnd)
+          ).subscribe(() => {
+           
+          });
     }
 
     // convenience getter for easy access to form fields
@@ -59,7 +65,7 @@ export class UsereditprofileComponent implements OnInit {
             .then(
                 data => {
                     if (data.role === RoleName.Admin) {
-                        this.router.navigateByUrl('/menu',{ skipLocationChange: true }).then(() => {
+                        this.router.navigateByUrl('/menu',{ skipLocationChange: false }).then(() => {
                             this.router.navigate(['/admin']);
                         });
                     } else {

@@ -1,12 +1,8 @@
 .example-radio-button {
     margin: 5px !important;
   }
-  
-  :host ::ng-deep .mat-radio-outer-circle{
-    border-style: none;
-  }
-
-  .pull-right{
+   
+.pull-right{
     float: right !important;
   }
 

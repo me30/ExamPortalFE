@@ -2,10 +2,6 @@
   margin: 5px !important;
 }
 
-:host ::ng-deep .mat-radio-outer-circle{
-  border-style: none;
-}
-
 .select2.ng-invalid.ng-touched {
   border: 1px solid red
 }

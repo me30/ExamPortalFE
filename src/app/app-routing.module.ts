@@ -18,6 +18,7 @@ import { RoleName } from './_models/role';
 import { UsereditprofileComponent } from './usereditprofile/usereditprofile.component';
 import { AppmenuComponent } from './appmenu/appmenu.component';
 import { AddQuestionsComponent } from './question/add-questions/add-questions.component';
+import { ExamListComponent } from './exam/exam-list/exam-list.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
         { path: 'cngpass', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
         { path: 'exam', component: ExamComponent, canActivate:[AuthGuard] },
         { path: 'examassign', component: ExamassignComponent, canActivate:[AuthGuard] },
+        { path: 'exam/list', component: ExamListComponent,canActivate: [AuthGuard] },
         { path: 'question', component: QuestionComponent, canActivate:[AuthGuard] },
         { path: 'question/add', component: AddQuestionsComponent, canActivate:[AuthGuard] },
         { path: 'user/edit/:id', component: EdituserComponent, canActivate:[AuthGuard]},
@@ -45,4 +47,6 @@ const appRoutes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+export const routing = RouterModule.forRoot(appRoutes,{
+    onSameUrlNavigation: 'reload'
+  });

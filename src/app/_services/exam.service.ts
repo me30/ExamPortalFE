@@ -60,6 +60,30 @@ export class ExamService {
       .catch(this.handleError);
   }
 
+  deleteExam(exam: Exam) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.delete(this.baseUrl + '/exam/' + exam.id,{ headers: headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  updateExam(exam: Exam) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    exam.createdBy = this.userService.user;
+    exam.createdDate = Date.now();
+    return this.http.put(this.baseUrl + '/exam',exam ,{ headers: headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
   //Store Selected exam for questions
   addExam(exam: Exam){
     return this.selectedExam = exam;
