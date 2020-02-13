@@ -12,7 +12,7 @@
       <!-- /.card-header -->
       <div class="card-body">
 
-        <form [formGroup]="createQuetionForm">
+        <form [formGroup]="questionForm">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -84,8 +84,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="option1IsAns">Option1 Is Ans</label><br>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                      formControlName="option1IsAns"  [(ngModel)]="selectedOption1">
+                    <mat-radio-group class="example-radio-group" formControlName="option1IsAns" [(ngModel)]="Option1AnsValue">
                       <mat-radio-button class="example-radio-button" *ngFor="let op1 of booleanValue" [value]="op1">
                         {{op1}}
                       </mat-radio-button>
@@ -98,7 +97,7 @@
                   <div class="form-group">
                     <label for="option2IsAns">Option2 Is Ans</label><br>
                     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                      formControlName="option2IsAns" [(ngModel)]="selectedOption2">
+                      formControlName="option2IsAns">
                       <mat-radio-button class="example-radio-button" *ngFor="let op2 of booleanValue" [value]="op2">
                         {{op2}}
                       </mat-radio-button>
@@ -111,7 +110,7 @@
                   <div class="form-group">
                     <label for="option3IsAns">Option3 Is Ans</label><br>
                     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                      formControlName="option3IsAns" [(ngModel)]="selectedOption3">
+                      formControlName="option3IsAns">
                       <mat-radio-button class="example-radio-button" *ngFor="let op3 of booleanValue" [value]="op3">
                         {{op3}}
                       </mat-radio-button>
@@ -124,7 +123,7 @@
                   <div class="form-group">
                     <label for="option4IsAns">Option4 Is Ans</label><br>
                     <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                      formControlName="option4IsAns" [(ngModel)]="selectedOption4">
+                      formControlName="option4IsAns">
                       <mat-radio-button class="example-radio-button" *ngFor="let op4 of booleanValue" [value]="op4">
                         {{op4}}
                       </mat-radio-button>
@@ -181,7 +180,7 @@
                       <div class="form-group">
                         <label for="option1IsAns">Option1 Is Ans</label><br>
                         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                          formControlName="option1IsAns" [(ngModel)]="selectedOption1">
+                          formControlName="option1IsAns">
                           <mat-radio-button class="example-radio-button" *ngFor="let op1 of booleanValue" [value]="op1">
                             {{op1}}
                           </mat-radio-button>
@@ -194,7 +193,7 @@
                       <div class="form-group">
                         <label for="option2IsAns">Option2 Is Ans</label><br>
                         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                          formControlName="option2IsAns" [(ngModel)]="selectedOption2">
+                          formControlName="option2IsAns">
                           <mat-radio-button class="example-radio-button" *ngFor="let op2 of booleanValue" [value]="op2">
                             {{op2}}
                           </mat-radio-button>
@@ -207,7 +206,7 @@
                       <div class="form-group">
                         <label for="option3IsAns">Option3 Is Ans</label><br>
                         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                          formControlName="option3IsAns" [(ngModel)]="selectedOption3">
+                          formControlName="option3IsAns">
                           <mat-radio-button class="example-radio-button" *ngFor="let op3 of booleanValue" [value]="op3">
                             {{op3}}
                           </mat-radio-button>
@@ -220,7 +219,7 @@
                       <div class="form-group">
                         <label for="option4IsAns">Option4 Is Ans</label><br>
                         <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                          formControlName="option4IsAns" [(ngModel)]="selectedOption4">
+                          formControlName="option4IsAns">
                           <mat-radio-button class="example-radio-button" *ngFor="let op4 of booleanValue" [value]="op4">
                             {{op4}}
                           </mat-radio-button>
@@ -242,8 +241,7 @@
 
 
           <div class="form-group">
-            <button [disabled]="loading" (click)="onFinalSubmit()" class="btn btn-primary pull-right">Finish</button>
-            <button [disabled]="loading" (click)="onSubmit();" type="reset" create class="btn btn-primary pull-right">Next</button>
+            <button [disabled]="loading" (click)="onSubmit();" type="reset" create class="btn btn-primary pull-right">Submit</button>
           </div>
           <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 

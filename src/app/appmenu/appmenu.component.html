@@ -23,25 +23,41 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+        <li class="nav-item" *ngIf="isUser">
+          <a [routerLink]="['/user/dashboard']" class="nav-link" routerLinkActive="active">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Dashboard
+            </p>
+          </a>
+        </li>
         <li class="nav-item">
-          <a [routerLink]="['/cngpass']" class="nav-link">
+          <a [routerLink]="['/cngpass']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <i class="nav-icon fas fa-edit"></i>
             <p>
               Change Password
             </p>
           </a>
         </li>
-        <li class="nav-header">Exam Portal</li>
-        <li class="nav-item">
-          <a [routerLink]="['/exam/list']" class="nav-link">
+        <li class="nav-header" *ngIf="isAdmin">Exam Portal</li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/exam/list']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <i class="far fa-circle nav-icon"></i>
             <p>
               Exam
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a [routerLink]="['/question']" class="nav-link">
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/examassign']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Exam Assignment
+            </p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/question/list']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <i class="far fa-circle nav-icon"></i>
             <p>
               Quetions

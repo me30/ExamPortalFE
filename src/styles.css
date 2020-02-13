@@ -69,6 +69,29 @@ mat-footer-row mat-footer-cell{
     font-weight: 700 !important;
   }
 
+.exam-search-form-field{
+    width: 15%;
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+.exam-search-form-field div.mat-form-field-underline {
+    display: none;
+}
+.exam-search-form-field div.mat-form-field-infix{
+    border-top: 0px;
+}
+.exam-search-form-field div.mat-form-field-wrapper{
+  padding-bottom: 0px;
+}
+.exam-search-form-field div.mat-form-field-suffix button{
+  height: 32px;
+  width: 32px;
+}
+
+
+
 /* filter controls */
 .search-div{
     margin: 10px;

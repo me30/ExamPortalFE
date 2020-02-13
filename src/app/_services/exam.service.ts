@@ -41,22 +41,14 @@ export class ExamService {
       .catch(this.handleError);
   }
 
-  getExamById(id: number) {
+  getExamById(id: number) : Promise<Exam> {
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.token
     });
     return this.http.get(this.baseUrl + '/exam/' + id,{ headers: headers })
       .toPromise()
-      .then(response =>  response.json() as Exam)
-      .catch(this.handleError);
-  }
-
-  examAssign(examAssign: ExamsAssign): Promise<Exam> {
-    examAssign.assignBy = this.user;
-    examAssign.dateOfAssign = Date.now();
-    return this.http.post(this.baseUrl + '/examAssign', examAssign)
-      .toPromise().then(response => response.json() as User)
+      .then(response => response.json() as Exam)
       .catch(this.handleError);
   }
 

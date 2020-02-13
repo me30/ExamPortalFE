@@ -19,6 +19,11 @@ export class AddQuestionsComponent implements OnInit {
   selectedAnsType: string;
   ansTypes: string[] = ['Text ans', 'Single select', 'Multi select'];
   selectedExam;
+  selectedOption1;
+  selectedOption2;
+  selectedOption3;
+  selectedOption4;
+
 
   constructor(private formBuilder: FormBuilder,
       private router: Router,
@@ -33,6 +38,10 @@ export class AddQuestionsComponent implements OnInit {
   ngOnInit() {
       this.selectedExam = this.examService.selectedExam.name
       this.selectedAnsType = this.ansTypes[0];
+      this.selectedOption1 = this.booleanValue[1];
+      this.selectedOption2 = this.booleanValue[1];
+      this.selectedOption3 = this.booleanValue[1];
+      this.selectedOption4 = this.booleanValue[1];
       this.exams$ = this.getExams();
       this.createQuetionForm = this.formBuilder.group({
           question: ['', Validators.required],
@@ -87,7 +96,7 @@ export class AddQuestionsComponent implements OnInit {
       this.questionService.createQuestion(this.createQuetionForm.value)
           .then(
               data => {
-                  this.router.navigate(['/admin']);
+                  this.router.navigate(['/question/list']);
               },
               error => {
                   this.loading = false;

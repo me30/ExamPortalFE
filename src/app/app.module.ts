@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, Injector } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -35,7 +35,11 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { ExamListComponent } from './exam/exam-list/exam-list.component';
 import { ExamEditComponent } from './exam/exam-edit/exam-edit.component';
-
+import { QuestionListComponent } from './question/question-list/question-list.component';
+import { QuestionEditComponent } from './question/question-edit/question-edit.component';
+import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
+import { ExamAssignService } from './_services/examAssign.service';
+import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { ExamEditComponent } from './exam/exam-edit/exam-edit.component';
     UsereditprofileComponent,
     AddQuestionsComponent,
     ExamListComponent,
-    ExamEditComponent
+    ExamEditComponent,
+    QuestionListComponent,
+    QuestionEditComponent,
+    UserDashboardComponent,
+    ExamassignListComponent
   ],
   imports: [
     BrowserModule,
@@ -79,9 +87,13 @@ import { ExamEditComponent } from './exam/exam-edit/exam-edit.component';
     UserService,
     ExamService,
     QuestionService,
+    ExamAssignService,
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
-  entryComponents: [ExamEditComponent],
+  entryComponents: [
+    ExamEditComponent,
+    QuestionEditComponent,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

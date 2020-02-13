@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
                 }else{
                     sessionStorage.setItem('user', JSON.stringify(data));
                 // sessionStorage.setItem('loggedUserRole', data.role.name);
-                 this.router.navigate(['/userPage']);
+                 this.router.navigate(['/user/dashboard']);
                 }
             }               
         },

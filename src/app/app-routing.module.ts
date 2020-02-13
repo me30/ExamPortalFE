@@ -19,6 +19,10 @@ import { UsereditprofileComponent } from './usereditprofile/usereditprofile.comp
 import { AppmenuComponent } from './appmenu/appmenu.component';
 import { AddQuestionsComponent } from './question/add-questions/add-questions.component';
 import { ExamListComponent } from './exam/exam-list/exam-list.component';
+import { QuestionListComponent } from './question/question-list/question-list.component';
+import { QuestionEditComponent } from './question/question-edit/question-edit.component';
+import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
+import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -27,19 +31,24 @@ const appRoutes: Routes = [
     { path: 'reset', component: ResetpasswordComponent},
     { path: '', component: HomeComponent, canActivate: [AuthGuard] ,
     children: [
-        { path: 'userPage', component: UserpageComponent,canActivate: [AuthGuard] },
+        { path: 'menu', component: AppmenuComponent, canActivate:[AuthGuard]},
         { path: 'admin', component: AdminComponent,canActivate: [AuthGuard] },
+        { path: 'cngpass', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
+        { path: 'user/dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
+        { path: 'userPage', component: UserpageComponent,canActivate: [AuthGuard] },
+        { path: 'user/edit/:id', component: EdituserComponent, canActivate:[AuthGuard]},
+        { path: 'user/register', component: RegisterComponent,canActivate: [AuthGuard]},
         { path: 'profile', component: UserprofileComponent, canActivate: [AuthGuard] },
         { path: 'editprofile', component: UsereditprofileComponent,canActivate: [AuthGuard] },
-        { path: 'user/register', component: RegisterComponent,canActivate: [AuthGuard]},
-        { path: 'cngpass', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
         { path: 'exam', component: ExamComponent, canActivate:[AuthGuard] },
         { path: 'examassign', component: ExamassignComponent, canActivate:[AuthGuard] },
+        { path: 'examAssign/list', component: ExamassignListComponent, canActivate:[AuthGuard] },
         { path: 'exam/list', component: ExamListComponent,canActivate: [AuthGuard] },
         { path: 'question', component: QuestionComponent, canActivate:[AuthGuard] },
         { path: 'question/add', component: AddQuestionsComponent, canActivate:[AuthGuard] },
-        { path: 'user/edit/:id', component: EdituserComponent, canActivate:[AuthGuard]},
-        { path: 'menu', component: AppmenuComponent, canActivate:[AuthGuard]},
+        { path: 'question/list', component: QuestionListComponent,canActivate:[AuthGuard] },
+        { path: 'question/edit', component: QuestionEditComponent,canActivate:[AuthGuard]},
+       
         // otherwise redirect to home
         { path: '**', redirectTo: '' }
       ]

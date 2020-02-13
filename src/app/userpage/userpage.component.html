@@ -1,2 +1,37 @@
-<h1>Hi {{userDisplayName}}!</h1>
-<p>You're logged in!!</p>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData"  matSort>
+      <ng-container matColumnDef="exam">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header>Exam Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.exam.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="assignBy">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header>Exam Assign By</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.assignBy.firstName}} {{element.assignBy.lastName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dateOfAssign">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date of Assigned</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.dateOfAssign | date:'medium'}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button><mat-icon>edit</mat-icon>Start Exam</button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>

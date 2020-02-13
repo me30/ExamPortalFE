@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
-import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { RouterEvent, NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
+import { Subject, timer, Subscription } from 'rxjs';
+import { takeUntil, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-appmenu',
@@ -17,9 +19,20 @@ export class AppmenuComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   firstName: String;
   lastName: String;
+  navlink: boolean = false;
+
+  minutesDisplay = 0;
+  secondsDisplay = 0;
+
+  //endTime = to same as BE's jwtExpirationInMs
+  endTime = 1;
+
+  unsubscribe$: Subject<void> = new Subject();
+  timerSubscription: Subscription;
 
   constructor(private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService) {
     this.ngOnInit();
   }
 
@@ -35,7 +48,6 @@ export class AppmenuComponent implements OnInit {
           this.firstName = data.firstName;
           this.lastName = data.lastName;
         });
-
     });
   }
 
@@ -45,5 +57,9 @@ export class AppmenuComponent implements OnInit {
 
   get isUser() {
     return this.user && this.user.role === RoleName.User;
+  }
+
+  clickEvent() {
+    this.navlink = !this.navlink;
   }
 }

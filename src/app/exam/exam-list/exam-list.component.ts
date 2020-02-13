@@ -14,7 +14,8 @@ import { ExamEditComponent } from '../exam-edit/exam-edit.component';
 })
 export class ExamListComponent implements OnInit {
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'createdDate', 'actions'];
+  displayedColumns: string[] = ['name', 'createdBy' ,'createdDate', 'actions'];
+  searchColumns: string[] = ['name','createdDate'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
@@ -36,7 +37,7 @@ export class ExamListComponent implements OnInit {
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
         this.listData.filterPredicate = (data, filter) => {
-          return this.displayedColumns.some(ele => {
+          return this.searchColumns.some(ele => {
             return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
           });
         };
@@ -49,7 +50,7 @@ export class ExamListComponent implements OnInit {
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
       this.listData.filterPredicate = (data, filter) => {
-        return this.displayedColumns.some(ele => {
+        return this.searchColumns.some(ele => {
           return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
         });
       };
@@ -78,7 +79,7 @@ export class ExamListComponent implements OnInit {
           this.listData.sort = this.sort;
           this.listData.paginator = this.paginator;
           this.listData.filterPredicate = (data, filter) => {
-            return this.displayedColumns.some(ele => {
+            return this.searchColumns.some(ele => {
               return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
             });
           };

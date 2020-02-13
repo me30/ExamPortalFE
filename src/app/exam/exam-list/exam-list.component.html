@@ -15,6 +15,10 @@
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Exam Name</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="createdBy">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Created By</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.createdBy.userName}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="createdDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.createdDate | date:'medium'}}</mat-cell>
