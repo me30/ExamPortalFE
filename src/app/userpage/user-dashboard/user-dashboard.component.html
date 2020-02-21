@@ -12,20 +12,20 @@
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>Exam</h3>
+        <div class="col-lg-3 col-6" *ngFor="let examAssigns of examAssigns">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{examAssigns.exam.name}}</h3>
 
-            <p>New Exams assigned to you</p>
+              <p>New Exam assigned to you</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-clipboard"></i>
+            </div>
+            <a [routerLink]="['/start/exam',{id: examAssigns.id}]" class="small-box-footer">Start Exam<i class="fas fa-arrow-circle-right"></i></a>
           </div>
-          <div class="icon">
-            <i class="ion ion-clipboard"></i>
-          </div>
-          <a [routerLink]="['/userPage']" class="small-box-footer">click for show exam <i class="fas fa-arrow-circle-right"></i></a>
         </div>
-      </div>
     </div>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Pipe } from '@angular/core';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
@@ -7,6 +7,8 @@ import { RouterEvent, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { Subject, timer, Subscription } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
+import { UserProfileService } from '../_services/userProfile.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-appmenu',
@@ -20,6 +22,8 @@ export class AppmenuComponent implements OnInit {
   firstName: String;
   lastName: String;
   navlink: boolean = false;
+  public imgsrc: any;
+  srcData : SafeResourceUrl;
 
   minutesDisplay = 0;
   secondsDisplay = 0;
@@ -32,7 +36,9 @@ export class AppmenuComponent implements OnInit {
 
   constructor(private userService: UserService,
     private router: Router,
-    private authService: AuthService) {
+    private userProfileService: UserProfileService,
+    public _DomSanitizationService: DomSanitizer
+    ) {
     this.ngOnInit();
   }
 
@@ -49,7 +55,16 @@ export class AppmenuComponent implements OnInit {
           this.lastName = data.lastName;
         });
     });
+    this.userProfileService.getUserProfileById(this.userService.user.id)
+    .then(data => { 
+      console.log(data);
+      this.imgsrc = data._body
+    });
   }
+
+  transform(){
+    return this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.imgsrc);
+}
 
   get isAdmin() {
     return this.user && this.user.role === RoleName.Admin;

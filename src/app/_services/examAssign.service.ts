@@ -39,6 +39,26 @@ export class ExamAssignService {
       .catch(this.handleError);
   }
 
+  getExamAssignById(id: number): Promise<ExamsAssign>{
+    const headers = new Headers({
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/examAssign/' + id,{ headers: headers })
+      .toPromise()
+      .then(response => response.json() as ExamsAssign);
+  }
+
+  getAllExamAssign(): Promise<ExamsAssign[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/examAssign/findAll', { headers: headers })
+      .toPromise()
+      .then(response => response.json() as ExamsAssign[])
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);

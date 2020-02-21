@@ -60,7 +60,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  getOnlyUsers(): Promise<any> {
+  getOnlyUsers(): Promise<User[]> {
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
@@ -71,7 +71,19 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  updateUser(userData: User) {
+  getUserForExamAssign(id : number): Promise<User[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token
+    });
+    return this.http.get(this.baseUrl + '/user/getUserForExamAssign/'+ id, { headers: headers })
+      .toPromise()
+      .then(response => response.json() as User[])
+      .catch(this.handleError);
+  }
+
+
+  updateUser(userData: User){
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token

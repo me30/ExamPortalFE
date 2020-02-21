@@ -23,6 +23,7 @@ import { QuestionListComponent } from './question/question-list/question-list.co
 import { QuestionEditComponent } from './question/question-edit/question-edit.component';
 import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
 import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
+import { StartExamComponent } from './userpage/start-exam/start-exam.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -48,7 +49,7 @@ const appRoutes: Routes = [
         { path: 'question/add', component: AddQuestionsComponent, canActivate:[AuthGuard] },
         { path: 'question/list', component: QuestionListComponent,canActivate:[AuthGuard] },
         { path: 'question/edit', component: QuestionEditComponent,canActivate:[AuthGuard]},
-       
+        { path: 'start/exam', component: StartExamComponent,canActivate:[AuthGuard]},
         // otherwise redirect to home
         { path: '**', redirectTo: '' }
       ]

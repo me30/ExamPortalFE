@@ -60,6 +60,10 @@
                         </div>
 
                     </div>
+                    <div class="form-group">
+                        <label for="profileImage">Upload Profile</label>
+                        <input accept="image/*" type="file" (change)="selectFile($event)" class="form-control" />
+                    </div>
 
                     <div class="form-group" *ngIf="isAdmin;then content else other_content">
                         <!-- this is ignored -->

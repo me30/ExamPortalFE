@@ -15,7 +15,7 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <button mat-icon-button><mat-icon>edit</mat-icon>Start Exam</button>
+          <button [routerLink]="['/start/exam',{id: row.id}]">Start Exam</button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="loading">

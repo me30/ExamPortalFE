@@ -40,6 +40,8 @@ import { QuestionEditComponent } from './question/question-edit/question-edit.co
 import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
 import { ExamAssignService } from './_services/examAssign.service';
 import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
+import { StartExamComponent } from './userpage/start-exam/start-exam.component';
+import { UserProfileService } from './_services/userProfile.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { ExamassignListComponent } from './examassign/examassign-list/examassign
     QuestionListComponent,
     QuestionEditComponent,
     UserDashboardComponent,
-    ExamassignListComponent
+    ExamassignListComponent,
+    StartExamComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +91,7 @@ import { ExamassignListComponent } from './examassign/examassign-list/examassign
     ExamService,
     QuestionService,
     ExamAssignService,
+    UserProfileService,
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
   entryComponents: [

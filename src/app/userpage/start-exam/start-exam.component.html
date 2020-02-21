@@ -1,0 +1,122 @@
+<section class="content">
+  <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">{{exam.name}}</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="exam">
+              <h2 class="text-center font-weight-normal"></h2>
+              <div>
+                <div *ngIf="config.duration" class="badge badge-info float-right">Time: {{ellapsedTime}} /
+                  {{duration}}
+                </div>
+                <div *ngFor="let question of filteredQuestions;">
+                  <h3 class="font-weight-normal">{{pager.index + 1}}.
+                    <span [innerHTML]="question.question"></span>
+                  </h3>
+
+                  <div *ngIf="question.ansCategory == 'Text ans'">
+                    <div class="row text-left options">
+                      <label for="correct_ans">Write your ans here</label>
+                      <input type="correct_ans" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.correct_ans.errors }" />
+                    </div>
+                  </div>
+
+                  <div class="row text-left options" *ngIf="question.ansCategory=='Multi select'">
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option1}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option2}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option3}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option4}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row text-left options" *ngIf="question.ansCategory=='Single select'">
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option1}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option2}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option3}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="option">
+                        <label class="font-weight-normal" [attr.for]="question.id">
+                          <input id="{{question.id}}" type="checkbox" /> {{question.option4}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <hr />
+                <div class="text-center">
+                  <!-- <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);">First</button>
+                  <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);">Prev</button> -->
+                  <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
+                  <!-- <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);">Last</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</section>

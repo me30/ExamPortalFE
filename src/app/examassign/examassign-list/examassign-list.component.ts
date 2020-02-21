@@ -37,7 +37,8 @@ export class ExamassignListComponent implements OnInit {
 
   constructor(private userService: UserService,
     private examService: ExamService,
-    private examAssignService: ExamAssignService) { }
+    private examAssignService: ExamAssignService,
+    private router: Router) { }
 
   getExams() {
     return this.examService.getExams();
@@ -45,7 +46,7 @@ export class ExamassignListComponent implements OnInit {
 
   ngOnInit() {
     this.selectedExam = this.examService.selectedExam.name
-    this.userService.getOnlyUsers().then(users => {
+    this.userService.getUserForExamAssign(this.examService.selectedExam.id).then(users => {
       this.listData = new MatTableDataSource(users);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -81,10 +82,12 @@ export class ExamassignListComponent implements OnInit {
     this.examAssign.dateOfAssign = Date.now();
     this.examAssign.exam = this.examService.selectedExam;
     this.selectedUsers.forEach(user => {
-      console.log(user);
       this.examAssign.assignTo = user;
       this.examAssignService.examAssign(this.examAssign)
-        .then(data => console.log(data));
+        .then(data => {
+          console.log(data);
+          this.router.navigate(['/examassign']);
+        });
     });
   }
 

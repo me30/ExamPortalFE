@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
 import { AuthService } from '../_services/auth.service';
+import { UserProfileService } from '../_services/userProfile.service';
 
 @Component({
     selector: 'app-register',
@@ -15,12 +16,15 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-
+    selectedFiles: FileList;  
+    currentFileUpload: File;  
+    
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
+        private userProfileService: UserProfileService
     ) { }
 
     ngOnInit() {
@@ -43,6 +47,10 @@ export class RegisterComponent implements OnInit {
         return this.userService.user && this.userService.user.role === RoleName.User;
     }
 
+    selectFile(event){
+        this.selectedFiles = event.target.files;  
+    }
+
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
@@ -58,6 +66,9 @@ export class RegisterComponent implements OnInit {
         this.authService.createUser(this.registerForm.value)
             .then(
                 data => {
+                    this.currentFileUpload = this.selectedFiles.item(0);  
+                    this.userProfileService.uploadFile(this.currentFileUpload ,this.registerForm.value)
+                    .then(data => data);
                     this.router.navigate(['/admin']);
                 },
                 error => {
