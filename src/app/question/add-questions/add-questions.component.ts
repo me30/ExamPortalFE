@@ -45,6 +45,7 @@ export class AddQuestionsComponent implements OnInit {
       this.exams$ = this.getExams();
       this.createQuetionForm = this.formBuilder.group({
           question: ['', Validators.required],
+          timePerQuestion: ['',Validators.required],
           ansCategory: [''],
           correct_ans: [''],
           option1: [''],

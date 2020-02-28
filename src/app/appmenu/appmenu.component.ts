@@ -23,7 +23,7 @@ export class AppmenuComponent implements OnInit {
   lastName: String;
   navlink: boolean = false;
   public imgsrc: any;
-  srcData : SafeResourceUrl;
+  srcData: SafeResourceUrl;
 
   minutesDisplay = 0;
   secondsDisplay = 0;
@@ -38,7 +38,7 @@ export class AppmenuComponent implements OnInit {
     private router: Router,
     private userProfileService: UserProfileService,
     public _DomSanitizationService: DomSanitizer
-    ) {
+  ) {
     this.ngOnInit();
   }
 
@@ -54,17 +54,21 @@ export class AppmenuComponent implements OnInit {
           this.firstName = data.firstName;
           this.lastName = data.lastName;
         });
+
+      this.userProfileService.getUserProfileById(this.userService.user.id)
+        .then(data => {
+          this.imgsrc = data._body
+        });
     });
     this.userProfileService.getUserProfileById(this.userService.user.id)
-    .then(data => { 
-      console.log(data);
-      this.imgsrc = data._body
-    });
+      .then(data => {
+        this.imgsrc = data._body
+      });
   }
 
-  transform(){
+  transform() {
     return this._DomSanitizationService.bypassSecurityTrustResourceUrl(this.imgsrc);
-}
+  }
 
   get isAdmin() {
     return this.user && this.user.role === RoleName.Admin;

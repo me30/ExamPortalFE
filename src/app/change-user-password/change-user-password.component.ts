@@ -59,7 +59,7 @@ export class ChangeUserPasswordComponent implements OnInit {
           } else {
             // sessionStorage.setItem('loggedUser', data.userName);
             // sessionStorage.setItem('loggedUserRole', data.role.name);
-            this.router.navigate(['/user/dashboard']);
+            this.router.navigate(['/dashboard']);
           }
         }
       },

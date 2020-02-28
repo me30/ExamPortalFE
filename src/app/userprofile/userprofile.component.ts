@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { RoleName } from '../_models/role';
 import { UserProfileService } from '../_services/userProfile.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UpdateImageComponent } from './update-image/update-image.component';
 
 @Component({
   selector: 'app-userprofile',
@@ -18,6 +19,7 @@ export class UserprofileComponent implements OnInit {
   imgsrc;
 
   private usereditprofileComponent = UsereditprofileComponent;
+  private upadteImageComponent = UpdateImageComponent;
 
   constructor(private userService: UserService,
     private router: Router,
@@ -56,6 +58,10 @@ export class UserprofileComponent implements OnInit {
   }
   public editProfile() {
     this.dialog.open(this.usereditprofileComponent,{height:'500px',width:'700px'});
+  }
+
+  public uploadImage(){
+    this.dialog.open(this.upadteImageComponent);
   }
 
 }

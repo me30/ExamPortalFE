@@ -34,6 +34,7 @@ export class QuestionEditComponent implements OnInit {
   ngOnInit() {
         this.questionForm = this.formBuilder.group({
           question: ['', Validators.required],
+          timePerQuestion: ['',Validators.required],
           ansCategory: [''],
           correct_ans: [''],
           option1: [''],
@@ -64,6 +65,7 @@ export class QuestionEditComponent implements OnInit {
         this.questionForm = new FormGroup({
           'id': new FormControl(data.id),
           'question': new FormControl(data.question, Validators.required),
+          'timePerQuestion': new FormControl(data.timePerQuestion, Validators.required),
           'exam':new FormControl(data.exam),
           'ansCategory': new FormControl(data.ansCategory),
           'correct_ans': new FormControl(data.correct_ans),
@@ -105,6 +107,7 @@ export class QuestionEditComponent implements OnInit {
       this.questionForm.setValue({
         'id': this.questionForm.controls.id.value,
           'question': this.questionForm.controls.question.value,
+          'timePerQuestion': this.questionForm.controls.timePerQuestion, 
           'exam':this.questionForm.controls.exam.value,
           'ansCategory': this.questionForm.controls.ansCategory.value,
           'correct_ans': this.questionForm.controls.correct_ans.value,
@@ -121,6 +124,7 @@ export class QuestionEditComponent implements OnInit {
       this.questionForm.setValue({
         'id': this.questionForm.controls.id.value,
           'question': this.questionForm.controls.question.value,
+          'timePerQuestion': this.questionForm.controls.timePerQuestion,
           'exam':this.questionForm.controls.exam.value,
           'ansCategory': this.questionForm.controls.ansCategory.value,
           'correct_ans': '',

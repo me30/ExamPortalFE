@@ -11,7 +11,7 @@ export class HomeComponent {
         if(this.userService.user.role === RoleName.Admin){
             this.router.navigate(['/admin']);
         }else{
-            this.router.navigate(['/user/dashboard']);
+            this.router.navigate(['/dashboard']);
         }
     }
 

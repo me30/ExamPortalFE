@@ -16,15 +16,12 @@ export class EdituserComponent implements OnInit {
     submitted = false;
     user_id: number;
     user: User;
-    selectedFiles: FileList;  
-    currentFileUpload: File;  
-
+    
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService,
-        private userProfileService: UserProfileService
+        private userService: UserService
     ) { }
 
     ngOnInit() {
@@ -44,9 +41,6 @@ export class EdituserComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.editUserForm.controls; }
 
-    selectFile(event){
-        this.selectedFiles = event.target.files;  
-    }
 
     onSubmit() {
         this.submitted = true;
@@ -59,10 +53,7 @@ export class EdituserComponent implements OnInit {
         this.loading = true;
         this.userService.updateUser(this.editUserForm.value)
             .then(
-                data => {
-                    this.currentFileUpload = this.selectedFiles.item(0);  
-                    this.userProfileService.uploadFile(this.currentFileUpload ,this.editUserForm.value)
-                    .then(data => data);
+                data => {  
                     this.router.navigate(['/admin']);
                 },
                 error => {

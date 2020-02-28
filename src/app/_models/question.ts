@@ -2,6 +2,7 @@ import { Exam } from './exam';
 
 export class Question{
     id: number;
+    timePerQuestion: number;
     question: string;
     exam: Exam;
     ansCategory: string;

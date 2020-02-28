@@ -42,6 +42,10 @@ import { ExamAssignService } from './_services/examAssign.service';
 import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
 import { StartExamComponent } from './userpage/start-exam/start-exam.component';
 import { UserProfileService } from './_services/userProfile.service';
+import { AnswerService } from './_services/answer.service';
+import { UpdateImageComponent } from './userprofile/update-image/update-image.component';
+import { ResultComponent } from './userpage/result/result.component';
+import { ResultService } from './_services/result.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,9 @@ import { UserProfileService } from './_services/userProfile.service';
     QuestionEditComponent,
     UserDashboardComponent,
     ExamassignListComponent,
-    StartExamComponent
+    StartExamComponent,
+    UpdateImageComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
@@ -92,11 +98,15 @@ import { UserProfileService } from './_services/userProfile.service';
     QuestionService,
     ExamAssignService,
     UserProfileService,
+    AnswerService,
+    ResultService,
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
   entryComponents: [
     ExamEditComponent,
     QuestionEditComponent,
+    UpdateImageComponent,
+    ResultComponent,
   ],
   bootstrap: [AppComponent]
 })

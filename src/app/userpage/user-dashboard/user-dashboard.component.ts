@@ -5,6 +5,8 @@ import { Exam } from 'src/app/_models/exam';
 import { ExamsAssign } from 'src/app/_models/examsassign';
 import { UserProfileService } from 'src/app/_services/userProfile.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -20,10 +22,19 @@ export class UserDashboardComponent implements OnInit {
     private examAssignService: ExamAssignService,
     private userService: UserService,
     private userProfileService: UserProfileService,
-    public _DomSanitizationService: DomSanitizer
+    public _DomSanitizationService: DomSanitizer,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+    this.examAssignService.getExamAssignByUserId(this.userService.user)
+      .then(examsAssign => {
+          this.examAssigns = examsAssign;
+      });
+    });
     this.examAssignService.getExamAssignByUserId(this.userService.user)
       .then(examsAssign => {
           this.examAssigns = examsAssign;

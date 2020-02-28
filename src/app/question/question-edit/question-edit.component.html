@@ -24,6 +24,17 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="timePerQuestion">Add Time in seconds</label>
+                <input type="text" formControlName="timePerQuestion" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timePerQuestion.errors }" />
+                <div *ngIf="submitted && f.timePerQuestion.errors" class="invalid-feedback">
+                  <div *ngIf="f.timePerQuestion.errors.required">timePerQuestion is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="form-group">
             <mat-radio-group class="example-radio-group" formControlName="ansCategory" [(ngModel)]="selectedAnsType">
               <mat-radio-button class="example-radio-button" *ngFor="let ansType of ansTypes" [value]="ansType">
