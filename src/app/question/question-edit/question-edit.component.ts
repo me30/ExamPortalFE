@@ -16,12 +16,14 @@ export class QuestionEditComponent implements OnInit {
   questionForm: FormGroup;
   selectedAnsType: string;
   ansTypes: string[] = ['Text ans', 'Single select', 'Multi select'];
+  s: string[] = [];
   selectedExam;
   Option1AnsValue: boolean;
   Option2AnsValue: boolean;
   Option3AnsValue: boolean;
   Option4AnsValue: boolean;
   booleanValue: boolean[] = [true, false];
+  time = { hour: 0, minute: 0, second: 0 };
 
 
 
@@ -62,10 +64,15 @@ export class QuestionEditComponent implements OnInit {
 
     this.questionService.getQuestionById(this.questionId)
       .then(data => {
+        var hours = Math.trunc(data.timePerQuestion/60);
+        var minutes = data.timePerQuestion % 60;
+        this.time.hour = hours;
+        this.time.minute = minutes;
+        console.log(this.time = { hour: hours, minute: minutes, second: 0});
         this.questionForm = new FormGroup({
           'id': new FormControl(data.id),
           'question': new FormControl(data.question, Validators.required),
-          'timePerQuestion': new FormControl(data.timePerQuestion, Validators.required),
+          'timePerQuestion': new FormControl(this.time, Validators.required),
           'exam':new FormControl(data.exam),
           'ansCategory': new FormControl(data.ansCategory),
           'correct_ans': new FormControl(data.correct_ans),
@@ -78,7 +85,7 @@ export class QuestionEditComponent implements OnInit {
           'option3IsAns': new FormControl(data.option3IsAns),
           'option4IsAns': new FormControl(data.option4IsAns)
         });
-
+           
         if (data.ansCategory == 'Text ans')
           this.selectedAnsType = this.ansTypes[0];
         else if (data.ansCategory == 'Single select')
@@ -107,7 +114,7 @@ export class QuestionEditComponent implements OnInit {
       this.questionForm.setValue({
         'id': this.questionForm.controls.id.value,
           'question': this.questionForm.controls.question.value,
-          'timePerQuestion': this.questionForm.controls.timePerQuestion, 
+          'timePerQuestion': this.time.hour * 60 + this.time.minute, 
           'exam':this.questionForm.controls.exam.value,
           'ansCategory': this.questionForm.controls.ansCategory.value,
           'correct_ans': this.questionForm.controls.correct_ans.value,
@@ -124,7 +131,7 @@ export class QuestionEditComponent implements OnInit {
       this.questionForm.setValue({
         'id': this.questionForm.controls.id.value,
           'question': this.questionForm.controls.question.value,
-          'timePerQuestion': this.questionForm.controls.timePerQuestion,
+          'timePerQuestion': this.time.hour * 60 + this.time.minute,
           'exam':this.questionForm.controls.exam.value,
           'ansCategory': this.questionForm.controls.ansCategory.value,
           'correct_ans': '',

@@ -16,15 +16,12 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-    selectedFiles: FileList;  
-    currentFileUpload: File;  
-    
+      
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private userService: UserService,
-        private authService: AuthService,
-        private userProfileService: UserProfileService
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -34,8 +31,8 @@ export class RegisterComponent implements OnInit {
             userName: ['', Validators.required],
             password: ['', Validators.required],
             email: ['', Validators.required],
-            gender: ['', Validators.required],
-            dob: ['', Validators.required]
+            gender: [''],
+            dob: ['']
         });
     }
 
@@ -45,10 +42,6 @@ export class RegisterComponent implements OnInit {
 
     get isUser() {
         return this.userService.user && this.userService.user.role === RoleName.User;
-    }
-
-    selectFile(event){
-        this.selectedFiles = event.target.files;  
     }
 
     // convenience getter for easy access to form fields
@@ -66,9 +59,6 @@ export class RegisterComponent implements OnInit {
         this.authService.createUser(this.registerForm.value)
             .then(
                 data => {
-                    this.currentFileUpload = this.selectedFiles.item(0);  
-                    this.userProfileService.uploadFile(this.currentFileUpload ,this.registerForm.value)
-                    .then(data => data);
                     this.router.navigate(['/admin']);
                 },
                 error => {

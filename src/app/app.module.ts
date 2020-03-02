@@ -46,6 +46,7 @@ import { AnswerService } from './_services/answer.service';
 import { UpdateImageComponent } from './userprofile/update-image/update-image.component';
 import { ResultComponent } from './userpage/result/result.component';
 import { ResultService } from './_services/result.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { ResultService } from './_services/result.service';
     HttpClientModule,
     routing,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [RouterModule],
   providers: [

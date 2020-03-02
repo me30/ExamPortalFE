@@ -54,12 +54,12 @@ export class AppmenuComponent implements OnInit {
           this.firstName = data.firstName;
           this.lastName = data.lastName;
         });
-
       this.userProfileService.getUserProfileById(this.userService.user.id)
         .then(data => {
           this.imgsrc = data._body
         });
     });
+    
     this.userProfileService.getUserProfileById(this.userService.user.id)
       .then(data => {
         this.imgsrc = data._body

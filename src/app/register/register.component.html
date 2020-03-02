@@ -40,31 +40,7 @@
                             <div *ngIf="f.email.errors.required">Email is required</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dob">Date of Birth</label>
-                        <input type="date" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
-                        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
-                            <div *ngIf="f.dob.errors.required">DOB is required</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label id="example-radio-group-label">Please selecet Gender  </label>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                            formControlName="gender">
-                            <mat-radio-button class="example-radio-button" *ngFor="let gender of genders" [value]="gender">
-                                {{gender}}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                        <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-                            <div *ngIf="f.gender.errors.required">Gender is required</div>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="profileImage">Upload Profile</label>
-                        <input accept="image/*" type="file" (change)="selectFile($event)" class="form-control" />
-                    </div>
-
+                
                     <div class="form-group" *ngIf="isAdmin;then content else other_content">
                         <!-- this is ignored -->
                     </div>

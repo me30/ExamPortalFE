@@ -19,7 +19,10 @@ export class UsereditprofileComponent implements OnInit {
     submitted = false;
     user: any;
     mySubscription: any;
-    
+    selectedFiles: FileList;
+    currentFileUpload: File;
+    url : any = '';
+
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -49,6 +52,19 @@ export class UsereditprofileComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.profileUserForm.controls; }
 
+    selectFile(event) {
+        this.selectedFiles = event.target.files;
+        if (event.target.files && event.target.files[0]) {
+            const fileReader: FileReader = new FileReader();
+
+            fileReader.readAsDataURL(event.target.files[0]); // read file as data url
+
+            fileReader.onload = (event: Event) => {
+                this.url = fileReader.result; // This is valid
+             };
+        }
+    }
+
     onSubmit() {
         this.submitted = true;
 
@@ -61,7 +77,9 @@ export class UsereditprofileComponent implements OnInit {
         this.userService.updateProfile(this.profileUserForm.value)
             .then(
                 data => {
-
+                    this.currentFileUpload = this.selectedFiles.item(0);
+                    this.userProfileService.uploadFile(this.currentFileUpload, this.userService.user)
+                        .then(data => data);
                     if (data.role === RoleName.Admin) {
                         this.router.navigateByUrl('/menu', { skipLocationChange: false }).then(() => {
                             this.dialogRef.close();
