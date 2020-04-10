@@ -77,8 +77,5 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             window.confirm('Password not matched! Please enter correct paasword');
         });
-     
-       
     }
-    
 }

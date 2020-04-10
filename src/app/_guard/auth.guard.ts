@@ -7,8 +7,7 @@ import { AuthService } from '../_services/auth.service';
 
 
 @Injectable({ providedIn: 'root' })
-export class
-    AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
     user: User[] = [];
     constructor(
         private router: Router,
@@ -32,7 +31,7 @@ export class
         if (currantUser) {
             return true;
         } else {
-            this.router.navigate(["login"]);
+            this.router.navigate(["/login"]);
             return false;
         }
     }
