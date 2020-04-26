@@ -5,18 +5,54 @@
       <div class="row">
 
         <div class="col-xs-12 col-md-10 offset-md-1">
-            <a [routerLink]="['/editprofile']"
-            class="btn btn-sm btn-outline-secondary action-btn pull-right">
-            <i class="ion-gear-a "></i> Edit Profile Settings
+          <a (click)="editProfile()" class="btn btn-sm btn-outline-secondary action-btn pull-right">
+            <i class="fa fa-edit"></i> Edit Profile Settings
           </a>
-          <img  class="user-img" />
-          <h4>User     : {{user.userName }}</h4>
-          <p>First Name: {{user.firstName}}</p>
-          <p>Last Name : {{user.lastName}}</p>
-          <p>Email     : {{user.email}}</p>
-           
-        </div>
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-3">
 
+                  <!-- Profile Image -->
+                  <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                      <div class="text-center" *ngIf="imgsrc">
+                        <img [src]="transform()" class="img-circle img-bordered-sm" height="100" width="100" />
+                      </div>
+                      <div class="text-center" *ngIf="!imgsrc">
+                        <img src="assets/dist/img/avatar6.png" class="img-circle img-bordered-sm" height="100" width="100">
+                      </div>
+
+                      <h3 class="profile-username text-center"> {{user.firstName}} {{user.lastName}}</h3>
+
+                      <!-- <p class="text-muted text-center">
+                        <a class="far fa-images" (click)="uploadImage()">Select Profile Picture</a>
+                       </p> -->
+
+                      <ul class="list-group list-group-unbordered mb-3">
+                          <li class="list-group-item">
+                              <b>User Name</b> <a class="float-right"> {{user.userName}}</a>
+                            </li>
+                        <li class="list-group-item">
+                          <b>First Name </b> <a class="float-right">{{user.firstName}}</a>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Last Name </b> <a class="float-right"> {{user.lastName}}</a>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Email</b> <a class="float-right"> {{user.email}}</a>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Gender</b> <a class="float-right"> {{user.gender}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </div>

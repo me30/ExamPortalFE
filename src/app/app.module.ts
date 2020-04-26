@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, ErrorHandler, Injector } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { routing } from './app-routing.module';
@@ -20,7 +20,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { EdituserComponent } from './edituser/edituser.component';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { UserpageComponent } from './userpage/userpage.component';
 import { ExamComponent } from './exam/exam.component';
 import { ExamassignComponent } from './examassign/examassign.component';
@@ -30,8 +30,23 @@ import { QuestionComponent } from './question/question.component';
 import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
 import { QuestionService } from './_services/question.service';
 import { UsereditprofileComponent } from './usereditprofile/usereditprofile.component';
-import { DataTablesModule } from 'angular-datatables';
-import { AddQuestionsComponent } from './question/add-questions/add-questions.component';  
+import { AddQuestionsComponent } from './question/add-questions/add-questions.component';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from './material/material.module';
+import { ExamListComponent } from './exam/exam-list/exam-list.component';
+import { ExamEditComponent } from './exam/exam-edit/exam-edit.component';
+import { QuestionListComponent } from './question/question-list/question-list.component';
+import { QuestionEditComponent } from './question/question-edit/question-edit.component';
+import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
+import { ExamAssignService } from './_services/examAssign.service';
+import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
+import { StartExamComponent } from './userpage/start-exam/start-exam.component';
+import { UserProfileService } from './_services/userProfile.service';
+import { AnswerService } from './_services/answer.service';
+import { UpdateImageComponent } from './userprofile/update-image/update-image.component';
+import { ResultComponent } from './userpage/result/result.component';
+import { ResultService } from './_services/result.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -54,25 +69,47 @@ import { AddQuestionsComponent } from './question/add-questions/add-questions.co
     QuestionComponent,
     ChangeUserPasswordComponent,
     UsereditprofileComponent,
-    AddQuestionsComponent
+    AddQuestionsComponent,
+    ExamListComponent,
+    ExamEditComponent,
+    QuestionListComponent,
+    QuestionEditComponent,
+    UserDashboardComponent,
+    ExamassignListComponent,
+    StartExamComponent,
+    UpdateImageComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     routing,
     MatRadioModule,
-    DataTablesModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
+  exports: [RouterModule],
   providers: [
     AuthService,
     UserService,
     ExamService,
     QuestionService,
-    {provide: APP_BASE_HREF, useValue : '/' }
-],
+    ExamAssignService,
+    UserProfileService,
+    AnswerService,
+    ResultService,
+    { provide: APP_BASE_HREF, useValue: '/' }
+  ],
+  entryComponents: [
+    ExamEditComponent,
+    QuestionEditComponent,
+    UpdateImageComponent,
+    ResultComponent,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

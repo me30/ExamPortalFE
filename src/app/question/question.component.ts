@@ -38,8 +38,6 @@ export class QuestionComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.examService.exam = this.selectExamForm.value;
-        // this.router.navigate(['/question/add']);
         this.examService.getExamById(this.selectExamForm.value.examid)
         .then(
             data => {

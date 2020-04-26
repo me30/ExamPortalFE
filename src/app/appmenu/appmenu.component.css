@@ -11,3 +11,7 @@
 .mat-header-cell{
     color: white;
 }
+.user-panel img {
+    height: 40px !important;
+    width: 2.5rem !important;
+}

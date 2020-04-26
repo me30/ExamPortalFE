@@ -1,49 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
-import { Observable,Subject } from "rxjs";  
-
-
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Component({ templateUrl: 'admin.component.html' })
 export class AdminComponent implements OnInit {
-    users: User[] = [];
-    dtOptions: DataTables.Settings = {};
-    dtTrigger: Subject<any> = new Subject();
-    deleteMessage=false;  
+    listData: MatTableDataSource<any>;
+    displayedColumns: string[] = ['firstName', 'lastName', 'gender', 'userName', 'email', 'actions'];
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    searchKey: string;
 
     constructor(private router: Router,
         private userService: UserService) { }
 
     ngOnInit() {
-        this.dtOptions = {  
-            pageLength: 6,  
-            stateSave:true,  
-            lengthMenu:[[6, 16, 20, -1], [6, 16, 20, "All"]],  
-            processing: true  
-          };       
-          this.dtTrigger.next();  
+
         this.userService.getOnlyUsers().then(users => {
-            this.users = users
+            this.listData = new MatTableDataSource(users);
+            this.listData.sort = this.sort;
+            this.listData.paginator = this.paginator;
+            this.listData.filterPredicate = (data, filter) => {
+                return this.displayedColumns.some(ele => {
+                    return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+                });
+            };
         });
     }
 
     deleteUser(user: User): void {
         this.userService.deleteUser(user)
-            .then(data => { this.deleteMessage=true;  
-                this.loadAllUsers();
-            } );
+            .then(data => {
+                console.log(data);
+
+                this.userService.getOnlyUsers().then(users => {
+                    this.listData = new MatTableDataSource(users);
+                    this.listData.sort = this.sort;
+                    this.listData.paginator = this.paginator;
+                    this.listData.filterPredicate = (data, filter) => {
+                        return this.displayedColumns.some(ele => {
+                            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+                        });
+                    };
+                });
+            });
     };
 
     edit(user: User) {
         this.router.navigate(['/user/edit', user.id]);
     }
 
-    private loadAllUsers() {
-        this.userService.getOnlyUsers().then(users => {
-            this.users = users
-        });
-    };
+    onSearchClear() {
+        this.searchKey = "";
+        this.applyFilter();
+    }
+
+    applyFilter() {
+        this.listData.filter = this.searchKey.trim().toLowerCase();
+    }
 }

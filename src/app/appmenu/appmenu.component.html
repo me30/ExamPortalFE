@@ -1,19 +1,29 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="#" class="brand-link">
-    <img src="assets/dist/img/logo.jpg" alt="AdminLTE Logo" class="pnx-msg-icon elevation-3">
+  <a href="http://www.nxsol.com/" class="brand-link">
+    <img src="assets/dist/img/NX.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">N-Xperts Solutions</span>
   </a>
 
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="imgsrc">
       <div class="image">
-        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img [src]="transform()" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a [routerLink]="['/profile']" class="d-block">{{user.firstName}} {{user.lastName}}</a>
+        <a [routerLink]="['/profile']" class="d-block">{{firstName}} {{lastName}}</a>
+      </div>
+    </div>
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="!imgsrc">
+      <div class="image">
+        <img src="assets/dist/img/avatar6.png" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a [routerLink]="['/profile']" class="d-block">{{firstName}} {{lastName}}</a>
       </div>
     </div>
 
@@ -21,39 +31,55 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview menu-open">
-          <!-- <a href="#" class="nav-link active">
+               with font-awesome or any other icon font library -->
+        <li class="nav-item" *ngIf="isUser">
+          <a [routerLink]="['/dashboard']" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
-              <i class="right fas fa-angle-left"></i>
             </p>
-          </a> -->
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-               <a [routerLink]="['/cngpass']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Change Password</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview"  *ngIf="isAdmin">
-            <li class="nav-item">
-              <a [routerLink]="['/exam']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Add Exam</p>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav nav-treeview"  *ngIf="isAdmin">
-            <li class="nav-item">
-              <a [routerLink]="['/question']" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Add Quetions</p>
-              </a>
-            </li>
-          </ul>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+            <a [routerLink]="['/admin']" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+        <li class="nav-item">
+          <a [routerLink]="['/cngpass']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Change Password
+            </p>
+          </a>
+        </li>
+        <li class="nav-header" *ngIf="isAdmin">Exam Portal</li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/exam/list']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Exam
+            </p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/question/list']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Quetions
+            </p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a [routerLink]="['/examassign']" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Exam Assignment
+            </p>
+          </a>
         </li>
       </ul>
     </nav>

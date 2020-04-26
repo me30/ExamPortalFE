@@ -2,9 +2,10 @@ import { Exam } from './exam';
 
 export class Question{
     id: number;
+    timePerQuestion: number;
     question: string;
     exam: Exam;
-    ansInText: string;
+    ansCategory: string;
     correct_ans: string;
     option1: string;
     option2: string;
@@ -14,6 +15,4 @@ export class Question{
     option2IsAns: Boolean;
     option3IsAns: Boolean;
     option4IsAns: Boolean;
-    isMultiSelect: Boolean;
-    isText: Boolean;
 }

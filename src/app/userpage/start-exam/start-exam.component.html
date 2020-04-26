@@ -1,0 +1,141 @@
+<section class="content">
+  <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">{{exam.name}}</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="exam">
+              <h2 class="text-center font-weight-normal"></h2>
+              <div>
+
+                <form [formGroup]="answerForm">
+                  <div *ngFor="let question of filteredQuestions;">
+                    <div *ngIf="question.timePerQuestion" class="badge badge-info float-right">Time: {{ellapsedTime}} /
+                      {{parseTime((this.filteredQuestions[0].timePerQuestion) * 60)}}
+                    </div>
+                    <h3 class="font-weight-normal">{{pager.index + 1}}.
+                      <span [innerHTML]="question.question"></span>
+                    </h3>
+
+                    <div *ngIf="question.ansCategory == 'Text ans'">
+
+                      <div class="row text-left options">
+                        <label for="ans">Write your ans here</label>
+                        <input type="text" formControlName="ans" class="form-control" />
+                      </div>
+
+                    </div>
+                    <div class="row text-left options" *ngIf="question.ansCategory=='Multi select'">
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-checkbox (change)="onSelect($event,question.option1)">
+                              {{question.option1}}
+                            </mat-checkbox>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-checkbox (change)="onSelect($event,question.option2)">
+                              {{question.option2}}
+                            </mat-checkbox>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-checkbox (change)="onSelect($event,question.option3)">
+                              {{question.option3}}
+                            </mat-checkbox>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-checkbox (change)="onSelect($event,question.option4)">
+                              {{question.option4}}
+                            </mat-checkbox>
+                          </label>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row text-left options" *ngIf="question.ansCategory=='Single select'">
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-radio-button [value]="question.option1" (change)="radioChange($event,question.option1)">
+                              {{question.option1}}
+                            </mat-radio-button>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-radio-button [value]="question.option2" (change)="radioChange($event,question.option2)">
+                              {{question.option2}}
+                            </mat-radio-button>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-radio-button [value]="question.option3" (change)="radioChange($event,question.option3)">
+                              {{question.option3}}
+                            </mat-radio-button>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="option">
+                          <label class="font-weight-normal" [attr.for]="question.id">
+                            <mat-radio-button [value]="question.option4" (change)="radioChange($event,question.option4)">
+                              {{question.option4}}
+                            </mat-radio-button>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="text-center">
+                    <button class="btn btn-primary" (click)="onSubmit();goTo(pager.index + 1);">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</section>

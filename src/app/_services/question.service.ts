@@ -31,6 +31,56 @@ export class QuestionService {
       .catch(this.handleError);
   }
 
+  getQuestionsByExamId(id: number): Promise<Question[]>{
+    const headers = new Headers({
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/question/loadByExamId/'+ id,{ headers: headers })
+      .toPromise()
+      .then(response => response.json() as Question[]);
+  }
+
+  getAllQuestions(): Promise<Question[]> {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/question/findAll',{ headers: headers })
+      .toPromise()
+      .then(response => response.json() as Question[]);
+  }
+
+  getQuestionById(id: number): Promise<Question>{
+    const headers = new Headers({
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.get(this.baseUrl + '/question/' + id,{ headers: headers })
+      .toPromise()
+      .then(response => response.json() as Question);
+  }
+
+  updateQuestion(question: Question) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.put(this.baseUrl + '/question',question,{ headers: headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  deleteQuestion(question: Question) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.delete(this.baseUrl + '/question/' + question.id,{ headers: headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
     return Promise.reject(error.message || error);

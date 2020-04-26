@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { User } from '../_models/user';
+import { UserProfileService } from '../_services/userProfile.service';
 
 @Component({
     selector: 'app-edituser',
@@ -15,12 +16,12 @@ export class EdituserComponent implements OnInit {
     submitted = false;
     user_id: number;
     user: User;
-
+    
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private route: ActivatedRoute,
-        private userService: UserService,
+        private userService: UserService
     ) { }
 
     ngOnInit() {
@@ -32,13 +33,14 @@ export class EdituserComponent implements OnInit {
             userName: ['', Validators.required],
             email: ['', Validators.required],
             gender: ['', Validators.required],
-            dob: ['', Validators.required],
+            dob: ['', Validators.required]
         });
         this.initForm();
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.editUserForm.controls; }
+
 
     onSubmit() {
         this.submitted = true;
@@ -51,12 +53,13 @@ export class EdituserComponent implements OnInit {
         this.loading = true;
         this.userService.updateUser(this.editUserForm.value)
             .then(
-                data => {
+                data => {  
                     this.router.navigate(['/admin']);
                 },
                 error => {
                     this.loading = false;
                 });
+
     }
 
     private initForm() {

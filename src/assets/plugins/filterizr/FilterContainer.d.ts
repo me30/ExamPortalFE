@@ -1,6 +1,6 @@
-import { RawOptionsCallbacks } from './types/interfaces';
 import FilterizrOptions from './FilterizrOptions/FilterizrOptions';
 import FilterItems from './FilterItems';
+import { RawOptionsCallbacks } from 'dist/angular-login-demo/assets/plugins/filterizr/types/interfaces';
 /**
  * Resembles the grid of items within Filterizr.
  */

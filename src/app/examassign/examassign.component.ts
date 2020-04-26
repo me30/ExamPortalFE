@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { ExamService } from '../_services/exam.service';
+import { MatTableDataSource, MatSort, MatPaginator, MatCheckboxChange, MatOptionSelectionChange } from '@angular/material';
+import { Exam } from '../_models/exam';
+import { User } from '../_models/user';
+import { ExamsAssign } from '../_models/examsassign';
+import { ExamAssignService } from '../_services/examAssign.service';
+import { NgForm, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-examassign',
@@ -10,72 +15,46 @@ import { ExamService } from '../_services/exam.service';
     styleUrls: ['./examassign.component.css']
 })
 export class ExamassignComponent implements OnInit {
-
-    examassign: FormGroup;
+    @ViewChild('selectExamForm') selectExamForm: NgForm;
     loading = false;
     submitted = false;
-    users$;
+    booleanValue: string[] = ['true', 'false'];
     exams$;
-    selected: number = 0;
+    examid;
+   
     constructor(private formBuilder: FormBuilder,
-        private userService: UserService,
-        private examService: ExamService,
-        private router: Router
+        private router: Router,
+        private examService: ExamService
     ) { }
 
-    selectOption(id: number) {
-        //getted from event
-        console.log(id);
-      }
-
-    getUsers() {
-        return this.userService.getusers();
-    }
 
     getExams() {
         return this.examService.getExams();
     }
-
     ngOnInit() {
-        this.examassign = this.formBuilder.group({
-            assignTo: ['', Validators.required],
-            description: ['', Validators.required],
-            exam: ['', Validators.required]
-        });
-        this.users$ = this.getUsers();
         this.exams$ = this.getExams();
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.examassign.controls; }
+    get f() { return this.selectExamForm.controls; }
 
     onSubmit() {
         this.submitted = true;
         // stop here if form is invalid
-        if (this.examassign.invalid) {
+        if (this.selectExamForm.invalid) {
             return;
         }
 
         this.loading = true;
-
-        this.userService.getUserById(this.users$)
+        this.examService.getExamById(this.selectExamForm.value.examid)
         .then(
             data => {
-                // this.router.navigate(['/#']);
-                console.log(data);
+               this.examService.selectedExam = data;
+               this.router.navigate(['/examAssign/list']);  
             },
             error => {
                 this.loading = false;
             });
-       
-        this.examService.examAssign(this.examassign.value)
-            .then(
-                data => {
-                    this.router.navigate(['/#']);
-                },
-                error => {
-                    this.loading = false;
-                });
+
 
     }
 }

@@ -41,22 +41,38 @@ export class ExamService {
       .catch(this.handleError);
   }
 
-  getExamById(id: number) {
+  getExamById(id: number) : Promise<Exam> {
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.token
     });
     return this.http.get(this.baseUrl + '/exam/' + id,{ headers: headers })
       .toPromise()
-      .then(response =>  response.json() as Exam)
+      .then(response => response.json() as Exam)
       .catch(this.handleError);
   }
 
-  examAssign(examAssign: ExamsAssign): Promise<Exam> {
-    examAssign.assignBy = this.user;
-    examAssign.dateOfAssign = Date.now();
-    return this.http.post(this.baseUrl + '/examAssign', examAssign)
-      .toPromise().then(response => response.json() as User)
+  deleteExam(exam: Exam) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    return this.http.delete(this.baseUrl + '/exam/' + exam.id,{ headers: headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  updateExam(exam: Exam) {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    });
+    exam.createdBy = this.userService.user;
+    exam.createdDate = Date.now();
+    return this.http.put(this.baseUrl + '/exam',exam ,{ headers: headers })
+      .toPromise()
+      .then(response => response)
       .catch(this.handleError);
   }
 
