@@ -47,6 +47,8 @@ import { UpdateImageComponent } from './userprofile/update-image/update-image.co
 import { ResultComponent } from './userpage/result/result.component';
 import { ResultService } from './_services/result.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ExamassignListComponent,
     StartExamComponent,
     UpdateImageComponent,
-    ResultComponent
+    ResultComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +105,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     UserProfileService,
     AnswerService,
     ResultService,
+    CookieService,
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
   entryComponents: [

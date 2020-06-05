@@ -14,13 +14,13 @@
             <div *ngIf="f.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="userName">Username</label>
         <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
         <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
             <div *ngIf="f.userName.errors.required">Username is required</div>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="form-group">
         <label for="password">Password</label>
         <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
@@ -44,11 +44,16 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="gender">Gender</label>
-        <input type="text" formControlName="gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" />
+        <label for="gender">Gender </label>
+        <!-- <input type="text" formControlName="gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" />
         <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
             <div *ngIf="f.gender.errors.required">Password is required</div>
-        </div>
+        </div> -->
+        <mat-radio-group class="example-radio-group" formControlName="gender" [(ngModel)]="currentSelectedGender">
+            <mat-radio-button class="example-radio-button" *ngFor="let gender of gender" [value]="gender">
+              {{gender}}
+            </mat-radio-button>
+          </mat-radio-group>
     </div>
     
     <div class="form-group">

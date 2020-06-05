@@ -33,7 +33,6 @@ export class ResultComponent implements OnInit, AfterViewInit {
   user: User = {
     id: undefined,
     password: undefined,
-    userName: undefined,
     firstName: undefined,
     lastName: undefined,
     role: undefined,

@@ -24,10 +24,11 @@ import { QuestionEditComponent } from './question/question-edit/question-edit.co
 import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
 import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
 import { StartExamComponent } from './userpage/start-exam/start-exam.component';
+import { SignupComponent } from './signup/signup.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent },
+    { path: 'register', component: SignupComponent },
     { path: 'forgot', component: ForgotpasswordComponent },
     { path: 'reset', component: ResetpasswordComponent},
     { path: '', component: HomeComponent, canActivate: [AuthGuard] ,

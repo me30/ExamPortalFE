@@ -30,7 +30,6 @@ export class EdituserComponent implements OnInit {
         this.editUserForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            userName: ['', Validators.required],
             email: ['', Validators.required],
             gender: ['', Validators.required],
             dob: ['', Validators.required]
@@ -69,7 +68,6 @@ export class EdituserComponent implements OnInit {
                     'id': new FormControl(data.id),
                     'firstName': new FormControl(data.firstName, Validators.required),
                     'lastName': new FormControl(data.lastName, Validators.required),
-                    'userName': new FormControl(data.userName, Validators.required),
                     'email': new FormControl(data.email, Validators.required),
                     'gender': new FormControl(data.gender, Validators.required),
                     'dob': new FormControl(data.dob, Validators.required),

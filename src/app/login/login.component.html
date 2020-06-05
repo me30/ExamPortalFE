@@ -1,30 +1,63 @@
-<div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="padding: 50px;">
-                    <div class="form-group">
-                        <label for="usernameOrEmail">Email</label>
-                        <input type="text" formControlName="usernameOrEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }" />
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Sign</b>In</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="input-group mb-3">
+                        <input type="email" [(ngModel)]="Formdata.username" formControlName="usernameOrEmail" class="form-control" placeholder="Email"
+                            [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
                         <div *ngIf="submitted && f.usernameOrEmail.errors" class="invalid-feedback">
                             <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div class="input-group mb-3">
+                        <input type="password" [(ngModel)]="Formdata.password" formControlName="password" class="form-control" placeholder="Password"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <button [disabled]="loading" class="btn btn-primary">Login</button>
-                        <a routerLink="/register" class="btn btn-link">Register</a>
-                        <a routerLink="/forgot">Forgot Password</a>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" [(ngModel)]="Formdata.rememberme" [ngModelOptions]="{standalone: true}" id="remember" (change)="getCookie()">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" [disabled]="loading" class="btn btn-primary btn-block btn-flat">Sign
+                                In</button>
+                        </div>
+                        <!-- /.col -->
                     </div>
-                    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
                 </form>
+                <p class="mb-1">
+                    <a routerLink="/forgot">I forgot my password</a>
+                </p>
+                <p class="mb-1">
+                        <a routerLink="/register">Sign Up</a>
+                </p>
             </div>
+            <!-- /.login-card-body -->
         </div>
     </div>
-</div>
+    <!-- /.login-box -->
+</body>

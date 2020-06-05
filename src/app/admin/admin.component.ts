@@ -7,7 +7,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 @Component({ templateUrl: 'admin.component.html' })
 export class AdminComponent implements OnInit {
     listData: MatTableDataSource<any>;
-    displayedColumns: string[] = ['firstName', 'lastName', 'gender', 'userName', 'email', 'actions'];
+    displayedColumns: string[] = ['firstName', 'lastName', 'gender', 'email', 'actions'];
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     searchKey: string;

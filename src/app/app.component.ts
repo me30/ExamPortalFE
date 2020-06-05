@@ -16,7 +16,7 @@ export class AppComponent {
         private router: Router,
         private userService : UserService
     ) {
-     this.currentUser.userName = sessionStorage.getItem('loggedUser');
+     this.currentUser.email = sessionStorage.getItem('loggedUser');
      this.role = sessionStorage.getItem('loggedUserRole');
     }
 

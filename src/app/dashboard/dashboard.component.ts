@@ -13,7 +13,7 @@ userDisplayName = '';
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userDisplayName = this.userService.user.userName; 
+
   }
 
   

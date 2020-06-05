@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { RoleName } from '../_models/role';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({selector: 'app-login',templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
@@ -12,13 +13,15 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
+    public Formdata: any = {};
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
+        private _cookieService: CookieService
     ) { }
 
     ngOnInit() {
@@ -27,9 +30,25 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
+        if (this._cookieService.get('remember')) {
+            this.Formdata.username = this._cookieService.get('username');
+            this.Formdata.password = this._cookieService.get('password');
+            this.Formdata.rememberme = this._cookieService.get('remember');
+          }
+
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
+
+    getCookie() {
+        if (this.Formdata.rememberme != false) {
+          this._cookieService.set('username', this.Formdata.username);
+          this._cookieService.set('password', this.Formdata.password);
+          this._cookieService.set('remember', this.Formdata.rememberme);
+        } else {
+          this._cookieService.deleteAll();
+        }
+      }
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }

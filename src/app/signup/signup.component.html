@@ -1,0 +1,58 @@
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="#"><b>N-Xperts </b>Solution</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign Up</p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPwd">Confirm Password</label>
+            <input type="password" formControlName="confirmPwd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPwd.errors }" />
+            <div *ngIf="submitted && f.confirmPwd.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPwd.errors.required">Confirm Password is required</div>
+              <div *ngIf="f.confirmPwd.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Register</button>
+            <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+          </div>
+
+          <!-- <ng-template #content>
+                      <button [disabled]="loading" class="btn btn-primary">Register</button>
+                      <a [routerLink]="['/admin']" class="btn btn-link">Cancel</a>
+                  </ng-template>
+                  
+                  <ng-template #other_content>
+                      <button [disabled]="loading" class="btn btn-primary">Register</button>
+                      <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+                  </ng-template> -->
+
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+        </form>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+</body>

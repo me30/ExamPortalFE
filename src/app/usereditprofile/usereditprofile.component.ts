@@ -22,6 +22,8 @@ export class UsereditprofileComponent implements OnInit {
     selectedFiles: FileList;
     currentFileUpload: File;
     url : any = '';
+    gender: string[] = ['Male', 'Female'];
+    currentSelectedGender: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,10 +35,10 @@ export class UsereditprofileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.currentSelectedGender = this.gender[0];
         this.profileUserForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            userName: ['', Validators.required],
             email: ['', Validators.required],
             gender: ['', Validators.required],
             dob: ['', Validators.required],
@@ -77,9 +79,23 @@ export class UsereditprofileComponent implements OnInit {
         this.userService.updateProfile(this.profileUserForm.value)
             .then(
                 data => {
-                    this.currentFileUpload = this.selectedFiles.item(0);
-                    this.userProfileService.uploadFile(this.currentFileUpload, this.userService.user)
-                        .then(data => data);
+                    if (this.selectedFiles && this.selectedFiles.length > 0){
+                        this.currentFileUpload = this.selectedFiles.item(0);
+                        this.userProfileService.uploadFile(this.currentFileUpload, this.userService.user)
+                            .then(profile => {
+                                if (data.role === RoleName.Admin) {
+                                    this.router.navigateByUrl('/menu', { skipLocationChange: false }).then(() => {
+                                        this.dialogRef.close();
+                                        this.router.navigate(['/admin']);
+                                    });
+                                } else {
+                                    this.router.navigateByUrl('/menu', { skipLocationChange: true }).then(() => {
+                                        this.dialogRef.close();
+                                        this.router.navigate(['/dashboard'])
+                                    });
+                                }
+                            });
+                    }else{
                     if (data.role === RoleName.Admin) {
                         this.router.navigateByUrl('/menu', { skipLocationChange: false }).then(() => {
                             this.dialogRef.close();
@@ -91,7 +107,8 @@ export class UsereditprofileComponent implements OnInit {
                             this.router.navigate(['/dashboard'])
                         });
                     }
-                },
+                }
+            },
                 error => {
                     this.loading = false;
                 });
@@ -100,7 +117,6 @@ export class UsereditprofileComponent implements OnInit {
     private initForm() {
         let firstName = '';
         let lastName = '';
-        let userName = '';
         let email = '';
         let gender = '';
         let dob;
@@ -111,7 +127,6 @@ export class UsereditprofileComponent implements OnInit {
         id = user.id
         firstName = user.firstName;
         lastName = user.lastName;
-        userName = user.userName;
         email = user.email;
         gender = user.gender;
         dob = user.dob;
@@ -121,12 +136,16 @@ export class UsereditprofileComponent implements OnInit {
             'id': new FormControl(id),
             'firstName': new FormControl(firstName, Validators.required),
             'lastName': new FormControl(lastName, Validators.required),
-            'userName': new FormControl(userName, Validators.required),
             'email': new FormControl(email, Validators.required),
             'gender': new FormControl(gender, Validators.required),
             'dob': new FormControl(dob, Validators.required),
             'role': new FormControl(role)
         });
+        if(gender == this.gender[0]){
+            this.currentSelectedGender = this.gender[0];
+        }else{
+            this.currentSelectedGender = this.gender[1];
+        }
     }
 
     deactivate(): void {
