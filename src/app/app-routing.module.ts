@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     children: [
         { path: 'menu', component: AppmenuComponent, canActivate:[AuthGuard]},
         { path: 'admin', component: AdminComponent,canActivate: [AuthGuard] },
-        { path: 'cngpass', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
+        { path: 'change/password', component: ChangeUserPasswordComponent, canActivate: [AuthGuard] },
         { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
         { path: 'userPage', component: UserpageComponent,canActivate: [AuthGuard] },
         { path: 'user/edit/:id', component: EdituserComponent, canActivate:[AuthGuard]},

@@ -71,8 +71,14 @@ export class SignupComponent implements OnInit {
       this.loading = true;
       this.authService.createUser(this.registerForm.value)
           .then(
-              data => {
-                  this.router.navigate(['/admin']);
+              response => {   
+                  console.log(response);             
+                  if(response._body === "Email Address already in use!"){
+                    window.confirm('Email Address already in use! Please try with another Email Address.');
+                    this.router.navigate(['/']);  
+                }else{
+                   this.router.navigate(['/']);
+                  }
               },
               error => {
                   this.loading = false;

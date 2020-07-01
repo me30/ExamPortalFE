@@ -16,7 +16,9 @@ export class EdituserComponent implements OnInit {
     submitted = false;
     user_id: number;
     user: User;
-    
+    gender: string[] = ['Male', 'Female'];
+    currentSelectedGender: string;
+
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -26,7 +28,7 @@ export class EdituserComponent implements OnInit {
 
     ngOnInit() {
         this.user_id = +this.route.snapshot.paramMap.get('id');
-
+        this.currentSelectedGender = this.gender[0];
         this.editUserForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -73,6 +75,11 @@ export class EdituserComponent implements OnInit {
                     'dob': new FormControl(data.dob, Validators.required),
                     'role': new FormControl(data.role)
                 });
+                if(data.gender == this.gender[0]){
+                    this.currentSelectedGender = this.gender[0];
+                }else{
+                    this.currentSelectedGender = this.gender[1];
+                }
             }
         });
     }

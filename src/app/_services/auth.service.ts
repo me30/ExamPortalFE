@@ -34,10 +34,9 @@ export class AuthService {
       .then(response => response.json() as JwtAuthenticationResponse);
   }
 
-  createUser(userData: SignupRequest) {
+  createUser(userData: SignupRequest): Promise<any>{
     return this.http.post(this.baseUrl + '/signup', userData)
-      .toPromise().then(response => response)
-      .catch(this.handleError);
+      .toPromise().then(response => response);
   }
 
   forgotpassword(useremail: ForgotPasswordRequest): Promise<any> {

@@ -11,29 +11,40 @@ export class AdminComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     searchKey: string;
-
+    searchColumns: string[] = ['email'];
     constructor(private router: Router,
         private userService: UserService) { }
 
     ngOnInit() {
 
         this.userService.getOnlyUsers().then(users => {
-            this.listData = new MatTableDataSource(users);
-            this.listData.sort = this.sort;
-            this.listData.paginator = this.paginator;
-            this.listData.filterPredicate = (data, filter) => {
-                return this.displayedColumns.some(ele => {
-                    return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
-                });
-            };
+            users.forEach(user => {
+                if (user.firstName == null ) { 
+                    this.listData = new MatTableDataSource(users);
+                    this.listData.sort = this.sort;
+                    this.listData.paginator = this.paginator;
+                    this.listData.filterPredicate = (data, filter) => {
+                        return this.searchColumns.some(ele => {
+                            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+                        });
+                    };
+                }else {
+                    this.listData = new MatTableDataSource(users);
+                    this.listData.sort = this.sort;
+                    this.listData.paginator = this.paginator;
+                    this.listData.filterPredicate = (data, filter) => {
+                        return this.displayedColumns.some(ele => {
+                            return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
+                        });
+                    };
+                }
+            });    
         });
     }
 
     deleteUser(user: User): void {
         this.userService.deleteUser(user)
             .then(data => {
-                console.log(data);
-
                 this.userService.getOnlyUsers().then(users => {
                     this.listData = new MatTableDataSource(users);
                     this.listData.sort = this.sort;
