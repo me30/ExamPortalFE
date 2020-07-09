@@ -14,6 +14,7 @@ export class AdminComponent implements OnInit {
     searchColumns: string[] = ['email'];
     constructor(private router: Router,
         private userService: UserService) { }
+        
 
     ngOnInit() {
 
