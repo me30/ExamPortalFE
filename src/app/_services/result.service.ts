@@ -4,33 +4,33 @@ import { RequestOptions, Http, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
 import { Result } from '../_models/result';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
 export class ResultService {
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     private userService: UserService) { }
 
-  addResult(result: Result): Promise<Result> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.post(this.baseUrl + '/result', result, { headers: headers })
-      .toPromise().then(response => response.json() as Result)
-      .catch(this.handleError);
+    httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.userService.token
+      })
+    };
+
+  addResult(result: Result): Observable<Result> {
+    return this.http.post<Result>(this.baseUrl + '/result', result,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  getResultByExamIdAndUserId(exam_id:number,user_id:number): Promise<Result> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/result/getresult/' + exam_id + '/' + user_id, { headers: headers })
-      .toPromise()
-      .then(response => response.json() as Result);
+  getResultByExamIdAndUserId(exam_id: number, user_id: number): Observable<Result> {
+    return this.http.get<Result>(this.baseUrl + '/result/getresult/' + exam_id + '/' + user_id, this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Promise<Result> {

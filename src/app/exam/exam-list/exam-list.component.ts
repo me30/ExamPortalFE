@@ -16,8 +16,8 @@ export class ExamListComponent implements OnInit {
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'createdBy' ,'createdDate', 'actions'];
   searchColumns: string[] = ['name','createdDate'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   searchKey: string;
 
   private examComponent = ExamComponent;
@@ -32,7 +32,8 @@ export class ExamListComponent implements OnInit {
     this.router.events.pipe(
       filter((event: RouterEvent) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.examService.getExams().then(users => {
+      this.examService.getExams().subscribe(users => {
+        console.log(users);
         this.listData = new MatTableDataSource(users);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -45,7 +46,7 @@ export class ExamListComponent implements OnInit {
 
     });
 
-    this.examService.getExams().then(users => {
+    this.examService.getExams().subscribe(users => {
       this.listData = new MatTableDataSource(users);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -72,9 +73,9 @@ export class ExamListComponent implements OnInit {
 
   deleteExam(exam: Exam): void {
     this.examService.deleteExam(exam)
-      .then(data => {
+      .subscribe(data => {
         console.log(data);
-        this.examService.getExams().then(users => {
+        this.examService.getExams().subscribe(users => {
           this.listData = new MatTableDataSource(users);
           this.listData.sort = this.sort;
           this.listData.paginator = this.paginator;

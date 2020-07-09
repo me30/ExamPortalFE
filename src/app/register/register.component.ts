@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         this.authService.createUser(this.registerForm.value)
-            .then(
+            .subscribe(
                 data => {
                     this.router.navigate(['/admin']);
                 },

@@ -4,6 +4,9 @@ import { RequestOptions, Http, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
 import { ExamsAssign } from '../_models/examsassign';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ExamAssignService {
@@ -12,51 +15,35 @@ export class ExamAssignService {
   exam: Exam;
   selectedExam: Exam;
 
-  headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-  options = new RequestOptions({ headers: this.headers });
+  constructor(private http: HttpClient,
+    private userService: UserService) { }
 
-  constructor(private http: Http,
-              private userService: UserService) { }
- 
-  examAssign(examAssign: ExamsAssign): Promise<ExamsAssign> {
-    const headers = new Headers({
+  httpOptions = {
+    headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.post(this.baseUrl + '/examAssign', examAssign,{ headers: headers })
-      .toPromise().then(response => response.json() as ExamsAssign)
-      .catch(this.handleError);
+    })
+  };
+
+  examAssign(examAssign: ExamsAssign): Observable<ExamsAssign> {
+    return this.http.post<ExamsAssign>(this.baseUrl + '/examAssign', examAssign, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
 
-  getExamAssignByUserId(user: User): Promise<ExamsAssign[]> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/examAssign/getUsers/'+ user.id,{ headers: headers })
-      .toPromise().then(response => response.json() as ExamsAssign)
-      .catch(this.handleError);
+  getExamAssignByUserId(user: User): Observable<ExamsAssign[]> {
+    return this.http.get<ExamsAssign[]>(this.baseUrl + '/examAssign/getUsers/' + user.id, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getExamAssignById(id: number): Promise<ExamsAssign>{
-    const headers = new Headers({
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/examAssign/' + id,{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as ExamsAssign);
+  getExamAssignById(id: number): Observable<ExamsAssign> {
+    return this.http.get<ExamsAssign>(this.baseUrl + '/examAssign/' + id, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getAllExamAssign(): Promise<ExamsAssign[]> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/examAssign/findAll', { headers: headers })
-      .toPromise()
-      .then(response => response.json() as ExamsAssign[])
-      .catch(this.handleError);
+  getAllExamAssign(): Observable<ExamsAssign[]> {
+    return this.http.get<ExamsAssign[]>(this.baseUrl + '/examAssign/findAll', this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Promise<any> {

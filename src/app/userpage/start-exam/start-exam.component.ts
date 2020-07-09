@@ -95,10 +95,10 @@ export class StartExamComponent implements OnInit, OnDestroy {
     });
     this.exam_id = this.route.snapshot.paramMap.get('id');
     this.examAssignService.getExamAssignById(this.exam_id)
-      .then(examsAssign => {
+      .subscribe(examsAssign => {
         this.exam = examsAssign.exam;
         this.questionService.getQuestionsByExamId(examsAssign.exam.id)
-          .then(question => {
+          .subscribe(question => {
             this.questions = question;
             this.pager.count = this.questions.length;
             this.startTime = new Date();
@@ -178,7 +178,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
           'exam': this.exam
         });
         this.answerService.addAnswer(this.answerForm.value)
-          .then(data => {
+          .subscribe(data => {
             this.answerForm.reset();
             if (this.indexCount == this.pager.count) {
               this.logout();
@@ -326,7 +326,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
             'exam': this.exam
           });
           this.answerService.addAnswer(this.answerForm.value)
-            .then(data => {
+            .subscribe(data => {
               this.answerForm.reset();
               if (this.indexCount == this.pager.count) {
                 this.logout();
@@ -344,7 +344,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
           'exam': this.exam
         });
         this.answerService.addAnswer(this.answerForm.value)
-          .then(data => {
+          .subscribe(data => {
             this.answerForm.reset();
             if (this.indexCount == this.pager.count) {
               this.logout();
@@ -368,7 +368,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
           'exam': this.exam
         });
         this.answerService.addAnswer(this.answerForm.value)
-          .then(data => {
+          .subscribe(data => {
             this.answerForm.reset();
             if (this.indexCount == this.pager.count) {
               this.logout();
@@ -388,7 +388,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
           'exam': this.exam
         });
         this.answerService.addAnswer(this.answerForm.value)
-          .then(data => {
+          .subscribe(data => {
             this.answerForm.reset();
             if (this.indexCount == this.pager.count) {
               this.logout();
@@ -403,7 +403,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
           'exam': this.exam
         });
         this.answerService.addAnswer(this.answerForm.value)
-          .then(data => {
+          .subscribe(data => {
             this.answerForm.reset();
             if (this.indexCount == this.pager.count) {
               this.logout();
@@ -424,7 +424,6 @@ export class StartExamComponent implements OnInit, OnDestroy {
     } else {
       this.correctAns = this.multi4Ans + this.correctAns;
     }
-    console.log(this.correctAns);
     this.resultForm.setValue({
       'user': this.userService.user,
       'totalCorrectAnswer': (this.correctAns),
@@ -434,7 +433,7 @@ export class StartExamComponent implements OnInit, OnDestroy {
       'exam': this.exam
     });
     this.resultService.addResult(this.resultForm.value)
-      .then(data => {
+      .subscribe(data => {
         this.result.id = data.id;
         this.result.user = data.user;
         this.result.totalCorrectAnswer = data.totalCorrectAnswer;

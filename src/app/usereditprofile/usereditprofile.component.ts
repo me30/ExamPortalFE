@@ -77,12 +77,12 @@ export class UsereditprofileComponent implements OnInit {
 
         this.loading = true;
         this.userService.updateProfile(this.profileUserForm.value)
-            .then(
+            .subscribe(
                 data => {
                     if (this.selectedFiles && this.selectedFiles.length > 0){
                         this.currentFileUpload = this.selectedFiles.item(0);
                         this.userProfileService.uploadFile(this.currentFileUpload, this.userService.user)
-                            .then(profile => {
+                            .subscribe(profile => {
                                 if (data.role === RoleName.Admin) {
                                     this.router.navigateByUrl('/menu', { skipLocationChange: false }).then(() => {
                                         this.dialogRef.close();

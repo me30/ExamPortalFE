@@ -15,8 +15,8 @@ export class QuestionListComponent implements OnInit {
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['question', 'ansCategory', 'correct_ans', 'option1', 'option2', 'option3', 'option4', 'actions'];
   searchColumns: string[] = ['question'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   searchKey: string;
   exams$;
 
@@ -31,7 +31,7 @@ export class QuestionListComponent implements OnInit {
 
   ngOnInit() {
     this.exams$ = this.getExams();
-    this.questionService.getAllQuestions().then(questions => {
+    this.questionService.getAllQuestions().subscribe(questions => {
       this.listData = new MatTableDataSource(questions);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -58,9 +58,9 @@ export class QuestionListComponent implements OnInit {
 
   deleteQuestion(question: Question): void {
     this.questionService.deleteQuestion(question)
-      .then(data => {
+      .subscribe(data => {
         console.log(data);
-        this.questionService.getAllQuestions().then(questions => {
+        this.questionService.getAllQuestions().subscribe(questions => {
           this.listData = new MatTableDataSource(questions);
           this.listData.sort = this.sort;
           this.listData.paginator = this.paginator;
@@ -75,7 +75,7 @@ export class QuestionListComponent implements OnInit {
 
   getAllQuestions(event: MatOptionSelectionChange) {
     if (event.source.selected) {
-      this.questionService.getAllQuestions().then(questions => {
+      this.questionService.getAllQuestions().subscribe(questions => {
         this.listData = new MatTableDataSource(questions);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -90,7 +90,7 @@ export class QuestionListComponent implements OnInit {
 
   getQuestionByExamId(event: MatOptionSelectionChange, examId: number) {
     if (event.source.selected) {
-      this.questionService.getQuestionsByExamId(examId).then(questions => {
+      this.questionService.getQuestionsByExamId(examId).subscribe(questions => {
         this.listData = new MatTableDataSource(questions);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;

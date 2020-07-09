@@ -17,7 +17,7 @@
     </ng-container>
     <ng-container matColumnDef="createdBy">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Created By</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.createdBy.userName}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.createdBy.firstName}} {{element.createdBy.lastName}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="createdDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>

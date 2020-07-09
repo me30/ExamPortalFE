@@ -70,7 +70,7 @@ export class AddQuestionsComponent implements OnInit {
 
         this.loading = true;
         this.questionService.createQuestion(this.createQuetionForm.value)
-            .then(
+            .subscribe(
                 data => {
                     this.createQuetionForm.reset();
                     Object.keys(this.createQuetionForm.controls).forEach(key => {
@@ -114,7 +114,7 @@ export class AddQuestionsComponent implements OnInit {
             option4IsAns: this.createQuetionForm.controls.option4IsAns.value
         });
         this.questionService.createQuestion(this.createQuetionForm.value)
-            .then(
+            .subscribe(
                 data => {
                     this.router.navigate(['/question/list']);
                 },

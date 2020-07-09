@@ -10,6 +10,8 @@ import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';  
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,40 +23,33 @@ export class AuthService {
   _userActionOccured: Subject<void> = new Subject();
   get userActionOccured(): Observable<void> { return this._userActionOccured.asObservable() };
 
-  headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-  options = new RequestOptions({ headers: this.headers });
-
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     private userService: UserService,
     private router: Router) { }
 
-  login(userData: LoginRequest): Promise<JwtAuthenticationResponse> {
+  login(userData: LoginRequest): Observable<JwtAuthenticationResponse> {
     return this.http.post(this.baseUrl + '/signin', userData)
-      .toPromise()
-      .then(response => response.json() as JwtAuthenticationResponse);
+    .pipe(catchError(this.handleError));
   }
 
-  createUser(userData: SignupRequest): Promise<any>{
-    return this.http.post(this.baseUrl + '/signup', userData)
-      .toPromise().then(response => response);
+  createUser(userData: SignupRequest): Observable<any>{
+    return this.http.post<any>(this.baseUrl + '/signup', userData)
+    .pipe(catchError(this.handleError));
   }
 
-  forgotpassword(useremail: ForgotPasswordRequest): Promise<any> {
-    return this.http.post(this.baseUrl + '/forgotpassword', useremail)
-      .toPromise()
-      .catch(this.handleError);
+  forgotpassword(useremail: ForgotPasswordRequest): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/forgotpassword', useremail)
+    .pipe(catchError(this.handleError));
   }
 
-  resetpassword(data: ResetPasswordRequest): Promise<void> {
-    return this.http.post(this.baseUrl + '/reset', data)
-      .toPromise().then(response => response)
-      .catch(this.handleError);
+  resetpassword(data: ResetPasswordRequest): Observable<void> {
+    return this.http.post<void>(this.baseUrl + '/reset', data)
+    .pipe(catchError(this.handleError));
   }
 
   notifyUserAction() {
     this._userActionOccured.next();
   }
-
 
   isLoggedIn() {   
   
@@ -71,13 +66,11 @@ export class AuthService {
     }  
   
     // get the Expiration date of the token by calling getTokenExpirationDate(String) method of JwtHelper class. this method accepts a string value which is nothing but a token.  
-  
     if(token)  
     {  
       let expirationDate = jwtHelper.getTokenExpirationDate(token);  
   
       // check whether the token is expired or not by calling isTokenExpired() method of JwtHelper class.  
-  
       let isExpired = jwtHelper.isTokenExpired(token);  
   
       return !isExpired;      

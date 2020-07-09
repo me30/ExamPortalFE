@@ -1,30 +1,32 @@
 import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { RequestOptions, Http, Headers } from '@angular/http';
+import { RequestOptions, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
 import { Answer } from '../_models/answer';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
 export class AnswerService {
   private baseUrl = 'http://localhost:8080';
 
-  headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-  options = new RequestOptions({ headers: this.headers });
-
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     private userService: UserService) { }
 
-    addAnswer(answer: Answer): Promise<Exam> {
-        const headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + this.userService.token
-          });
-        return this.http.post(this.baseUrl + '/answer', answer,{ headers: headers })
-          .toPromise().then(response => response.json() as Answer)
-          .catch(this.handleError);
-      }
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    })
+  };
+
+  addAnswer(answer: Answer): Observable<Exam> {
+    return this.http.post<Exam>(this.baseUrl + '/answer', answer, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);

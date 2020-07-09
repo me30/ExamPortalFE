@@ -15,7 +15,7 @@ import { NgForm, FormBuilder } from '@angular/forms';
     styleUrls: ['./examassign.component.css']
 })
 export class ExamassignComponent implements OnInit {
-    @ViewChild('selectExamForm') selectExamForm: NgForm;
+    @ViewChild('selectExamForm', { static: true }) selectExamForm: NgForm;
     loading = false;
     submitted = false;
     booleanValue: string[] = ['true', 'false'];
@@ -46,7 +46,7 @@ export class ExamassignComponent implements OnInit {
 
         this.loading = true;
         this.examService.getExamById(this.selectExamForm.value.examid)
-        .then(
+        .subscribe(
             data => {
                this.examService.selectedExam = data;
                this.router.navigate(['/examAssign/list']);  

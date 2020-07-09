@@ -10,7 +10,7 @@ import { ExamService } from '../_services/exam.service';
     styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-    @ViewChild('selectExamForm') selectExamForm: NgForm;
+    @ViewChild('selectExamForm', { static: true }) selectExamForm: NgForm;
     loading = false;
     submitted = false;
     booleanValue: string[] = ['true', 'false'];
@@ -39,7 +39,7 @@ export class QuestionComponent implements OnInit {
 
         this.loading = true;
         this.examService.getExamById(this.selectExamForm.value.examid)
-        .then(
+        .subscribe(
             data => {
                this.examService.selectedExam = data;
                this.router.navigate(['/question/add']);  

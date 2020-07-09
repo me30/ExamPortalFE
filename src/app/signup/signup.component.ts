@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
 
       this.loading = true;
       this.authService.createUser(this.registerForm.value)
-          .then(
+          .subscribe(
               response => {   
                   console.log(response);             
                   if(response._body === "Email Address already in use!"){

@@ -54,7 +54,7 @@ export class ResultComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.userProfileService.getUserProfileById(this.userService.user.id)
-      .then(data => {
+      .subscribe(data => {
         console.log(data);
         this.imgsrc = data._body
       });

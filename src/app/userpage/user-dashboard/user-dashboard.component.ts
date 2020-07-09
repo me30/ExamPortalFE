@@ -31,12 +31,12 @@ export class UserDashboardComponent implements OnInit {
       filter((event: RouterEvent) => event instanceof NavigationEnd)
     ).subscribe(() => {
     this.examAssignService.getExamAssignByUserId(this.userService.user)
-      .then(examsAssign => {
+      .subscribe(examsAssign => {
           this.examAssigns = examsAssign;
       });
     });
     this.examAssignService.getExamAssignByUserId(this.userService.user)
-      .then(examsAssign => {
+      .subscribe(examsAssign => {
           this.examAssigns = examsAssign;
       });
   }

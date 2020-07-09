@@ -53,7 +53,7 @@ export class ResetpasswordComponent implements OnInit {
         return;
     }
     this.loading = true;
-    this.authService.resetpassword(this.resetForm.value).then(
+    this.authService.resetpassword(this.resetForm.value).subscribe(
             data => {
               this.router.navigate(['/login']);           
             },

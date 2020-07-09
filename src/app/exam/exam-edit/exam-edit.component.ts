@@ -42,7 +42,7 @@ export class ExamEditComponent implements OnInit, AfterViewInit {
 
     // Display the data retrieved from the data model to the form model.
     this.examService.getExamById(this.examId)
-      .then(data => {
+      .subscribe(data => {
         this.editExamForm = new FormGroup({
           'id': new FormControl(data.id),
           'name': new FormControl(data.name, Validators.required)
@@ -63,7 +63,7 @@ export class ExamEditComponent implements OnInit, AfterViewInit {
 
     this.loading = true;
     this.examService.updateExam(this.editExamForm.value)
-      .then(
+      .subscribe(
         data => {
           this.dialogRef.close();
           this.router.navigate(['/exam/list']);

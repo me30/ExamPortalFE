@@ -48,7 +48,7 @@ export class ChangeUserPasswordComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.userService.changePassword(this.resetForm.value).then(
+    this.userService.changePassword(this.resetForm.value).subscribe(
       data => {
         if (data != null) {
           if (this.userService.user.role === RoleName.Admin) {

@@ -49,19 +49,19 @@ export class AppmenuComponent implements OnInit {
     ).subscribe(() => {
 
       this.userService.getUserbyToken(this.token)
-        .then(data => {
+        .subscribe(data => {
           this.user = data;
           this.firstName = data.firstName;
           this.lastName = data.lastName;
         });
       this.userProfileService.getUserProfileById(this.userService.user.id)
-        .then(data => {
+        .subscribe(data => {
           this.imgsrc = data._body
         });
     });
     
     this.userProfileService.getUserProfileById(this.userService.user.id)
-      .then(data => {
+      .subscribe(data => {
         this.imgsrc = data._body
       });
   }

@@ -6,6 +6,9 @@ import { UserService } from './user.service';
 import { ExamsAssign } from '../_models/examsassign';
 import { ExamService } from './exam.service';
 import { Question } from '../_models/question';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class QuestionService {
@@ -16,69 +19,51 @@ export class QuestionService {
   headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
   options = new RequestOptions({ headers: this.headers });
 
-  constructor(private http: Http,
-              private examService: ExamService,
-              private userService: UserService) { }
- 
-   createQuestion(question: Question): Promise<Question> {
-    const headers = new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.userService.token
-      });
-    question.exam = this.examService.selectedExam;
-    return this.http.post(this.baseUrl + '/question', question ,{ headers: headers })
-      .toPromise().then(response => response.json() as Question)
-      .catch(this.handleError);
-  }
+  constructor(private http: HttpClient,
+    private examService: ExamService,
+    private userService: UserService) { }
 
-  getQuestionsByExamId(id: number): Promise<Question[]>{
-    const headers = new Headers({
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/question/loadByExamId/'+ id,{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as Question[]);
-  }
-
-  getAllQuestions(): Promise<Question[]> {
-    const headers = new Headers({
+  httpOptions = {
+    headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/question/findAll',{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as Question[]);
+    })
+  };
+
+  createQuestion(question: Question): Observable<Question> {
+    question.exam = this.examService.selectedExam;
+    return this.http.post<Question>(this.baseUrl + '/question', question, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getQuestionById(id: number): Promise<Question>{
-    const headers = new Headers({
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/question/' + id,{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as Question);
+  getQuestionsByExamId(id: number): Observable<Question[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.userService.token
+      })
+    };
+    return this.http.get<Question[]>(this.baseUrl + '/question/loadByExamId/' + id, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getAllQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(this.baseUrl + '/question/findAll', this.httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  getQuestionById(id: number): Observable<Question> {
+    return this.http.get<Question>(this.baseUrl + '/question/' + id,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   updateQuestion(question: Question) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.put(this.baseUrl + '/question',question,{ headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.put(this.baseUrl + '/question', question,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   deleteQuestion(question: Question) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.delete(this.baseUrl + '/question/' + question.id,{ headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.delete(this.baseUrl + '/question/' + question.id,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Promise<any> {

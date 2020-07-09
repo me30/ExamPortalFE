@@ -38,7 +38,7 @@ export class ExamComponent implements OnInit {
 
         this.loading = true;
         this.examService.createExam(this.createExamForm.value)
-            .then(
+            .subscribe(
                 data => {
                     this.dialogRef.close();
                     this.router.navigate(['/exam/list']);

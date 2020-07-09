@@ -53,7 +53,7 @@ export class EdituserComponent implements OnInit {
 
         this.loading = true;
         this.userService.updateUser(this.editUserForm.value)
-            .then(
+            .subscribe(
                 data => {  
                     this.router.navigate(['/admin']);
                 },
@@ -64,7 +64,7 @@ export class EdituserComponent implements OnInit {
     }
 
     private initForm() {
-        this.userService.getUserById(this.user_id).then(data => {
+        this.userService.getUserById(this.user_id).subscribe(data => {
             if (data != null) {
                 this.editUserForm = new FormGroup({
                     'id': new FormControl(data.id),

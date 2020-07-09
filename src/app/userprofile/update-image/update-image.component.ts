@@ -37,7 +37,7 @@ export class UpdateImageComponent implements OnInit {
   onUpdateImage() {
     this.currentFileUpload = this.selectedFiles.item(0);
     this.userProfileService.uploadFile(this.currentFileUpload, this.userService.user)
-      .then(data => {
+      .subscribe(data => {
         this.router.navigateByUrl('/menu', { skipLocationChange: false }).then(() => {
           this.dialogRef.close();
           this.router.navigate(['/profile']);

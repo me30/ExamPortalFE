@@ -63,7 +63,7 @@ export class QuestionEditComponent implements OnInit {
     this.questionId = +this.route.snapshot.paramMap.get('questionId');
 
     this.questionService.getQuestionById(this.questionId)
-      .then(data => {
+      .subscribe(data => {
         var hours = Math.trunc(data.timePerQuestion/60);
         var minutes = data.timePerQuestion % 60;
         this.time.hour = hours;
@@ -149,7 +149,7 @@ export class QuestionEditComponent implements OnInit {
 
     this.loading = true;
     this.questionService.updateQuestion(this.questionForm.value)
-        .then(
+        .subscribe(
             data => {
                 this.router.navigate(['/question/list']);
             },

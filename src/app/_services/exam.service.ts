@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { RequestOptions, Http, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
-import { ExamsAssign } from '../_models/examsassign';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ExamService {
@@ -12,72 +14,47 @@ export class ExamService {
   exam: Exam;
   selectedExam: Exam;
 
-  headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-  options = new RequestOptions({ headers: this.headers });
+  constructor(private http: HttpClient,
+    private userService: UserService) { }
 
-  constructor(private http: Http,
-              private userService: UserService) { }
- 
-   createExam(exam: Exam): Promise<Exam> {
-    const headers = new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.userService.token
-      });
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.userService.token
+    })
+  };
+
+  createExam(exam: Exam): Observable<Exam> {
     exam.createdBy = this.userService.user;
     exam.createdDate = Date.now();
-    return this.http.post(this.baseUrl + '/exam', exam,{ headers: headers })
-      .toPromise().then(response => this.exam = response.json() as Exam)
-      .catch(this.handleError);
+    return this.http.post<Exam>(this.baseUrl + '/exam', exam, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getExams(): Promise<Exam[]> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/exam/findAll',{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as Exam[])
-      .catch(this.handleError);
+  getExams(): Observable<Exam[]> {
+    return this.http.get<Exam[]>(this.baseUrl + '/exam/findAll', this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  getExamById(id: number) : Promise<Exam> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.get(this.baseUrl + '/exam/' + id,{ headers: headers })
-      .toPromise()
-      .then(response => response.json() as Exam)
-      .catch(this.handleError);
+  getExamById(id: number): Observable<Exam> {
+    return this.http.get<Exam>(this.baseUrl + '/exam/' + id, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   deleteExam(exam: Exam) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
-    return this.http.delete(this.baseUrl + '/exam/' + exam.id,{ headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.delete(this.baseUrl + '/exam/' + exam.id, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   updateExam(exam: Exam) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userService.token
-    });
     exam.createdBy = this.userService.user;
     exam.createdDate = Date.now();
-    return this.http.put(this.baseUrl + '/exam',exam ,{ headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.put(this.baseUrl + '/exam', exam, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   //Store Selected exam for questions
-  addExam(exam: Exam){
+  addExam(exam: Exam) {
     return this.selectedExam = exam;
   }
 

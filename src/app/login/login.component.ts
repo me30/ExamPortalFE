@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
         this.authService.login(this.loginForm.value)
-            .then(
+            .subscribe(
                 data => {
                     if(data != null){
                         this.getUserInfobyLogin(data.accessToken);
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
 
     private getUserInfobyLogin(token) {
      this.userService.getUserbyToken(token)  
-     .then(
+     .subscribe(
         data => {
             if(data != null){
                 if(data.role === RoleName.Admin){

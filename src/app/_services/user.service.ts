@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from "@angular/http";
+import { Headers, Http } from "@angular/http";
 import { User } from '../_models/user';
 import { RoleName } from '../_models/role';
-import { Exam } from '../_models/exam';
-import { ExamsAssign } from '../_models/examsassign';
-import { LoginRequest } from '../_payload/loginRequest';
-import { ForgotPasswordRequest } from '../_payload/forgotPasswordRequest';
-import { ResetPasswordRequest } from '../_payload/resetPasswordRequest';
-import { SignupRequest } from '../_payload/signupRequest';
 import { UpdateUserPasswordRequest } from '../_payload/updateUserPasswordRequest';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
@@ -18,122 +14,86 @@ export class UserService {
   private baseUrl = 'http://localhost:8080';
   user: User;
   token: String;
-  headers = new Headers({ 'Content-Type': 'application/json' });
-  options = new RequestOptions({ headers: this.headers });
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     private router: Router) {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     this.token = JSON.parse(sessionStorage.getItem('token'));
   }
 
-  getUserById(id: number): Promise<any> {
-    const headers = new Headers({
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.get(this.baseUrl + '/user/' + id, { headers: headers })
-      .toPromise()
-      .then(response => response.json() as User)
-      .catch(this.handleError);
+    })
+  };
+
+  getUserById(id: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+    return this.http.get<any>(this.baseUrl + '/user/' + id, httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  getUserbyToken(token: String): Promise<any> {
+  getUserbyToken(token: String): Observable<any> {
     this.token = token;
     sessionStorage.setItem('token', JSON.stringify(token));
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-    });
-    return this.http.get(this.baseUrl + '/user/find/', { headers: headers })
-      .toPromise()
-      .then(response => this.user = response.json() as User);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.get<any>(this.baseUrl + '/user/find/', httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  getusers(): Promise<any> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.get(this.baseUrl + '/user/findAll', { headers: headers })
-      .toPromise()
-      .then(response => response.json() as User[])
-      .catch(this.handleError);
+  getusers(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '/user/findAll', this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  getOnlyUsers(): Promise<User[]> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.get(this.baseUrl + '/user/getOnlyUsres', { headers: headers })
-      .toPromise()
-      .then(response => response.json() as User[])
-      .catch(this.handleError);
+  getOnlyUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + '/user/getOnlyUsres', this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  getUserForExamAssign(id : number): Promise<User[]> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.get(this.baseUrl + '/user/getUserForExamAssign/'+ id, { headers: headers })
-      .toPromise()
-      .then(response => response.json() as User[])
-      .catch(this.handleError);
+  getUserForExamAssign(id : number): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + '/user/getUserForExamAssign/'+ id, this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
-
 
   updateUser(userData: User){
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
     if (userData.role === RoleName.Admin) {
       userData.role = RoleName.Admin;
     } else {
       userData.role = RoleName.User;
     }
-    return this.http.put(this.baseUrl + '/user', userData, { headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.put(this.baseUrl + '/user', userData, this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
-  updateProfile(userData: User): Promise<any> {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
+  updateProfile(userData: User): Observable<any> {
     if (userData.role === RoleName.Admin) {
       userData.role = RoleName.Admin;
     } else {
       userData.role = RoleName.User;
     }
-    return this.http.put(this.baseUrl + '/user/editProfile', userData, { headers: headers })
-      .toPromise()
-      .then(response => this.user = response.json() as User)
-      .catch(this.handleError);
+    return this.http.put<any>(this.baseUrl + '/user/editProfile', userData, this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   changePassword(data: UpdateUserPasswordRequest) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.post(this.baseUrl + '/user/changepassword', data, { headers: headers })
-      .toPromise().then(response => response)
-      .catch(this.handleError);
+    return this.http.post(this.baseUrl + '/user/changepassword', data, this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   deleteUser(user: User) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    });
-    return this.http.delete(this.baseUrl + '/user/' + user.id, { headers: headers })
-      .toPromise()
-      .then(response => response)
-      .catch(this.handleError);
+    return this.http.delete(this.baseUrl + '/user/' + user.id,this.httpOptions)
+    .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any) {

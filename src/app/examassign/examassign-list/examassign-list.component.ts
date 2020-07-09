@@ -18,8 +18,8 @@ export class ExamassignListComponent implements OnInit {
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'gender', 'userName', 'email'];
   searchColumns: string[] = ['firstName', 'lastName', 'gender', 'userName', 'email'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   searchKey: string;
   exams$;
   myModel = false;
@@ -46,7 +46,7 @@ export class ExamassignListComponent implements OnInit {
 
   ngOnInit() {
     this.selectedExam = this.examService.selectedExam.name
-    this.userService.getUserForExamAssign(this.examService.selectedExam.id).then(users => {
+    this.userService.getUserForExamAssign(this.examService.selectedExam.id).subscribe(users => {
       this.listData = new MatTableDataSource(users);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -84,7 +84,7 @@ export class ExamassignListComponent implements OnInit {
     this.selectedUsers.forEach(user => {
       this.examAssign.assignTo = user;
       this.examAssignService.examAssign(this.examAssign)
-        .then(data => {
+        .subscribe(data => {
           console.log(data);
           this.router.navigate(['/examassign']);
         });

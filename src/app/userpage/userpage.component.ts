@@ -14,8 +14,8 @@ export class UserpageComponent implements OnInit {
   listData: MatTableDataSource<any>;
   displayedColumns: string[] = ['exam', 'assignBy' ,'dateOfAssign', 'actions'];
   searchColumns: string[] = ['exam.name','assignBy.firstName'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   searchKey: string;
 
   constructor(private userService: UserService,
@@ -24,7 +24,7 @@ export class UserpageComponent implements OnInit {
   ngOnInit() {
    
     this.examAssignService.getExamAssignByUserId(this.userService.user)
-    .then(examsAssign => {
+    .subscribe(examsAssign => {
       this.listData = new MatTableDataSource(examsAssign);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
