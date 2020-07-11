@@ -1,5 +1,5 @@
 {
-  "name": "angular-login-demo",
+  "name": "exam-portal-fe",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.1",
-    "@angular/cli": "~10.0.1",
+    "@angular/cli": "^10.0.2",
     "@angular/compiler-cli": "^10.0.3",
     "@angular/language-service": "^10.0.3",
     "@types/datatables.net": "^1.10.18",
