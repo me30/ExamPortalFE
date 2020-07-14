@@ -1,7 +1,4 @@
-import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { RequestOptions, Http, Headers } from '@angular/http';
-import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
 import { Result } from '../_models/result';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

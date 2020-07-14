@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatTableDataSource, MatSort, MatPaginator, MatCheckboxChange, MatOptionSelectionChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Exam } from 'src/app/_models/exam';
 import { User } from 'src/app/_models/user';
 import { ExamsAssign } from 'src/app/_models/examsassign';

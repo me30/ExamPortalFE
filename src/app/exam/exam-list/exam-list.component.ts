@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { ExamService } from 'src/app/_services/exam.service';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ExamComponent } from '../exam.component';
 import { filter } from 'rxjs/operators';
 import { Exam } from 'src/app/_models/exam';

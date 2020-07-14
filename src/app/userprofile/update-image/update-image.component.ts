@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from 'src/app/_services/userProfile.service';
 import { UserService } from 'src/app/_services/user.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ExamComponent } from 'src/app/exam/exam.component';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';

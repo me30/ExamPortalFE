@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { QuestionService } from 'src/app/_services/question.service';
 import { Question } from 'src/app/_models/question';
 import { Router } from '@angular/router';
 import { ExamService } from 'src/app/_services/exam.service';
-import { MatOptionSelectionChange } from '@angular/material';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 @Component({
   selector: 'app-question-list',

@@ -1,6 +1,5 @@
 import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { RequestOptions, Http, Headers } from '@angular/http';
 import { LoginRequest } from '../_payload/loginRequest';
 import { JwtAuthenticationResponse } from '../_payload/jwtAuthenticationResponse';
 import { SignupRequest } from '../_payload/signupRequest';

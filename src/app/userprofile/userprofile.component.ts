@@ -3,7 +3,7 @@ import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { UsereditprofileComponent } from '../usereditprofile/usereditprofile.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RoleName } from '../_models/role';
 import { UserProfileService } from '../_services/userProfile.service';
 import { DomSanitizer } from '@angular/platform-browser';

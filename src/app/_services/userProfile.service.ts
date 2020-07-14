@@ -1,6 +1,5 @@
 import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { Headers } from '@angular/http';
 import { UserService } from './user.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

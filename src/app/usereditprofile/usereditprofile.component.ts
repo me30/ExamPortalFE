@@ -5,7 +5,7 @@ import { UserService } from '../_services/user.service';
 import { RoleName } from '../_models/role';
 import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UserProfileService } from '../_services/userProfile.service';
 
 @Component({

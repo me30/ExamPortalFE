@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
      this.userService.getUserbyToken(token)  
      .subscribe(
         data => {
+            this.userService.user = data;
             if(data != null){
                 if(data.role === RoleName.Admin){
                     //set data in session 

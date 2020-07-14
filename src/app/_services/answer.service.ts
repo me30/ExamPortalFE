@@ -1,6 +1,4 @@
-import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { RequestOptions, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
 import { Answer } from '../_models/answer';

@@ -4,7 +4,7 @@ import { ResultService } from 'src/app/_services/result.service';
 import { UserService } from 'src/app/_services/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserProfileService } from 'src/app/_services/userProfile.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Exam } from 'src/app/_models/exam';
 import { User } from 'src/app/_models/user';
 
@@ -14,7 +14,7 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit, AfterViewInit {
- private result: Result = {
+  result: Result = {
     id: undefined,
     user: undefined,
     totalCorrectAnswer: undefined,

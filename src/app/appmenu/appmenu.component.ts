@@ -16,7 +16,17 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./appmenu.component.css']
 })
 export class AppmenuComponent implements OnInit {
-  user: User;
+  user: User =  {
+    id: undefined,
+    password: undefined,
+    firstName: undefined,
+    lastName: undefined,
+    role: undefined,
+    dob: undefined,
+    email: undefined,
+    gender: undefined,
+    resetToken : undefined
+  };
   token: String;
   dtTrigger: Subject<any> = new Subject();
   firstName: String;
@@ -40,6 +50,7 @@ export class AppmenuComponent implements OnInit {
     public _DomSanitizationService: DomSanitizer
   ) {
     this.ngOnInit();
+    this.user = JSON.parse(sessionStorage.getItem('user'));
   }
 
   ngOnInit() {
@@ -54,14 +65,15 @@ export class AppmenuComponent implements OnInit {
           this.firstName = data.firstName;
           this.lastName = data.lastName;
         });
-      this.userProfileService.getUserProfileById(this.userService.user.id)
+      this.userProfileService.getUserProfileById(this.user.id)
         .subscribe(data => {
           this.imgsrc = data._body
         });
     });
     
-    this.userProfileService.getUserProfileById(this.userService.user.id)
+    this.userProfileService.getUserProfileById(this.user.id)
       .subscribe(data => {
+        if(data != null)
         this.imgsrc = data._body
       });
   }

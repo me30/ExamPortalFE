@@ -1,9 +1,7 @@
 import { User } from '../_models/user';
 import { Injectable } from '@angular/core';
-import { RequestOptions, Http, Headers } from '@angular/http';
 import { Exam } from '../_models/exam';
 import { UserService } from './user.service';
-import { ExamsAssign } from '../_models/examsassign';
 import { ExamService } from './exam.service';
 import { Question } from '../_models/question';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,9 +13,6 @@ export class QuestionService {
   private baseUrl = 'http://localhost:8080';
   user: User;
   exam: Exam;
-
-  headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-  options = new RequestOptions({ headers: this.headers });
 
   constructor(private http: HttpClient,
     private examService: ExamService,

@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
-import { HttpModule } from '@angular/http';
 import { UserService } from './_services/user.service';
 import { AppheaderComponent } from './appheader/appheader.component';
 import { APP_BASE_HREF } from '@angular/common';
@@ -88,9 +87,8 @@ import { SignupComponent } from './signup/signup.component';
     MaterialModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpModule,
     HttpClientModule,
-    routing,
+    routing,   
     MatRadioModule,
     FormsModule,
     NgbModule
