@@ -84,6 +84,9 @@ export class AuthService {
 
   private handleError(error: any): Promise<any> {
     console.error('Some error occured', error);
+    if(error.error.text === "Email Address already in use!"){
+      window.confirm("Email Address already in use!");
+    }
     return Promise.reject(error.message || error);
   }
   

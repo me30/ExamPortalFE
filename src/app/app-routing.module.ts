@@ -1,30 +1,29 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guard/auth.guard';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AdminComponent } from './admin/admin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { HomeComponent } from './components/home/home.component';
+import { AppmenuComponent } from './layout/appmenu/appmenu.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ChangeUserPasswordComponent } from './components/change-user-password/change-user-password.component';
+import { UserpageComponent } from './components/user_components/userpage/userpage.component';
+import { UserDashboardComponent } from './components/user_components/userpage/user-dashboard/user-dashboard.component';
+import { EdituserComponent } from './components/edituser/edituser.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { UsereditprofileComponent } from './components/usereditprofile/usereditprofile.component';
+import { ExamComponent } from './components/exam/exam.component';
+import { ExamassignComponent } from './components/examassign/examassign.component';
+import { ExamassignListComponent } from './components/examassign/examassign-list/examassign-list.component';
+import { ExamListComponent } from './components/exam/exam-list/exam-list.component';
+import { QuestionComponent } from './components/question/question.component';
+import { AddQuestionsComponent } from './components/question/add-questions/add-questions.component';
+import { QuestionListComponent } from './components/question/question-list/question-list.component';
+import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+import { StartExamComponent } from './components/user_components/userpage/start-exam/start-exam.component';
 
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { UserprofileComponent } from './userprofile/userprofile.component';
-import { EdituserComponent } from './edituser/edituser.component';
-import { UserpageComponent } from './userpage/userpage.component';
-import { ExamComponent } from './exam/exam.component';
-import { ExamassignComponent } from './examassign/examassign.component';
-import { ChangeUserPasswordComponent } from './change-user-password/change-user-password.component';
-import { QuestionComponent } from './question/question.component';
-import { RoleName } from './_models/role';
-import { UsereditprofileComponent } from './usereditprofile/usereditprofile.component';
-import { AppmenuComponent } from './appmenu/appmenu.component';
-import { AddQuestionsComponent } from './question/add-questions/add-questions.component';
-import { ExamListComponent } from './exam/exam-list/exam-list.component';
-import { QuestionListComponent } from './question/question-list/question-list.component';
-import { QuestionEditComponent } from './question/question-edit/question-edit.component';
-import { UserDashboardComponent } from './userpage/user-dashboard/user-dashboard.component';
-import { ExamassignListComponent } from './examassign/examassign-list/examassign-list.component';
-import { StartExamComponent } from './userpage/start-exam/start-exam.component';
-import { SignupComponent } from './signup/signup.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
